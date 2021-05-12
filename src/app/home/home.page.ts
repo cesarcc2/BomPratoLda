@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ClientService } from '../services/client.service';
 
 @Component({
   selector: 'app-home',
@@ -7,6 +8,10 @@ import { Component } from '@angular/core';
 })
 export class HomePage {
 
-  constructor() {}
+  constructor(private ClientService:ClientService) {
+    this.ClientService.getClientes().subscribe((data) => {
+      console.log(data);
+    });
+  }
 
 }
