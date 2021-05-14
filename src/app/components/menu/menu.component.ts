@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Animation, AnimationController } from '@ionic/angular';
+import { Animation, AnimationController, NavController } from '@ionic/angular';
 import { Category } from 'src/app/models/category';
+import { Item } from 'src/app/models/item';
 import { CategoryService } from 'src/app/services/category.service';
 import { ItemsService } from 'src/app/services/items.service';
 
@@ -13,11 +14,15 @@ export class MenuComponent implements OnInit {
 
   public categories : Category[] = [];
   
-  constructor(private animationCtrl: AnimationController,private CategoryService: CategoryService,private ItemService: ItemsService) { 
+  constructor(private nav: NavController,private animationCtrl: AnimationController,private CategoryService: CategoryService,private ItemService: ItemsService) { 
   }
 
   ngOnInit() {
     this.getCategories();
+  }
+
+  public openItemPage(item:Item){
+    this.nav.navigateForward('/item-details', { state: {"item":item} });
   }
 
   public getCategories(){

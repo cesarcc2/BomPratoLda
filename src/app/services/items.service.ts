@@ -17,14 +17,14 @@ export class ItemsService {
 
     switch (category) {
       case CategoryType.pizzas:
-        url = "https://run.mocky.io/v3/af0eff42-7648-46cb-b1c2-3a7b9f7d76f9";
+        url = "https://run.mocky.io/v3/b1a29de2-2e98-4294-b171-6771aa577557";
         break;
     
       case CategoryType.burguers:
-        url = "https://run.mocky.io/v3/c2710d12-5ea4-4b08-9bc2-94771a26fb27";
+        url = "https://run.mocky.io/v3/87e2b4fd-97b4-4b5b-be5f-c67de24869a3";
         break;
       case CategoryType.sushi:
-        url = "https://run.mocky.io/v3/fad69478-1ed6-46f6-b867-853393413246";
+        url = "https://run.mocky.io/v3/0b404f02-0aef-40df-a258-3103de0f0207";
         break;
       case CategoryType.beverages:
         url = "https://run.mocky.io/v3/13b311e1-468e-48b0-b65e-396d47995398";

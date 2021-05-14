@@ -14,7 +14,7 @@
       </ion-grid>
     </div>
     <div class="items-container" open="false">
-      <div class="item" *ngFor="let item of category.items; let itemIndex = index;">
+      <div class="item" *ngFor="let item of category.items; let itemIndex = index;" (click)="openItemPage(item)">
         <ion-grid>
           <ion-row>
             <ion-col class="item-image-container" size="4">

@@ -1,0 +1,67 @@
+#item-image{
+
+}
+
+#item-name{
+    display: flex;
+    justify-content: center;
+    span{
+        font-size: 2rem;
+        font-weight: bold;
+    }
+}
+
+#item-decription{
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    span{
+        text-align: justify;
+        font-size: 1.2rem;
+    }
+}
+
+#ingredient-name-wrapper{
+    text-align: right;
+}
+
+#ingredient-name{
+    font-size: 1.1rem;
+}
+
+#quantity-icon-wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#ingredient-quantity{
+    margin-bottom: 0.3rem;
+}
+
+#ingredient-price-wrapper{
+    text-align: left;
+}
+
+#ingredient-unitPrice{
+    font-size: 1.1rem;
+}
+
+.quantity-icon{
+    font-size: 1.8rem;
+    margin-bottom: 0.3rem;
+}
+.quantity-icon:first-child{
+    margin-right: 0.5rem;
+}
+.quantity-icon:last-child{
+    margin-left: 0.5rem;
+}
+
+#item-price{
+    
+}
+
+#add-button{
+    
+}
