@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Animation, AnimationController } from '@ionic/angular';
+import { Category } from 'src/app/models/category';
+import { CategoryService } from 'src/app/services/category.service';
+import { ItemsService } from 'src/app/services/items.service';
 
 @Component({
   selector: 'menu-component',
@@ -8,18 +11,41 @@ import { Animation, AnimationController } from '@ionic/angular';
 })
 export class MenuComponent implements OnInit {
 
-  constructor(private animationCtrl: AnimationController) { 
+  public categories : Category[] = [];
+  
+  constructor(private animationCtrl: AnimationController,private CategoryService: CategoryService,private ItemService: ItemsService) { 
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.getCategories();
+  }
 
-  public openCategory(event){
-    
+  public getCategories(){
+    this.CategoryService.getCategories().subscribe((categories) => {
+      this.categories = categories;
+    });
+  }
+
+  public categoryClick(event){
     let card:HTMLElement = event.path.find(x => x.nodeName === 'ION-CARD-CONTENT');
+    let category = card.id;
+
+    this.toggleCategory(card);
+    this.getCategoryItems(category);
+  }
+
+  public getCategoryItems(category: string){
+    let clickedCategoryIndex = this.categories.findIndex(arrCategory => arrCategory.type === category && arrCategory.items == null);
+    if(clickedCategoryIndex !== -1){
+      this.ItemService.getItems(category).subscribe(items =>{
+        this.categories[clickedCategoryIndex].items = items;
+        console.log(this.categories[clickedCategoryIndex]);
+      });
+    }
+  }  
+
+  public toggleCategory(card: HTMLElement){
     let contentToExpand:HTMLElement = <HTMLElement>card.children[1];
-
-    
-
     if(contentToExpand.getAttribute("open") == "false"){
 
       let categoriesToClose = document.querySelectorAll('[open="true"]');
@@ -51,7 +77,10 @@ export class MenuComponent implements OnInit {
       .fromTo('height', '30rem', '0rem');
       closeCategory.play();
     }
+  }
 
+  trackByCategory(index,item:Category){
+    return item.type;
   }
 
 }
