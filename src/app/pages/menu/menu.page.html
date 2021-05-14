@@ -1,9 +1,18 @@
-<ion-header>
-  <ion-toolbar id="header">
-    <ion-title>BomPrato</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-toolbar id="header-toolbar">
+  <ion-buttons slot="primary">
+    <ion-button color="secondary">
+      <ion-icon class="header-icon" slot="icon-only" name="person-circle" (click)="navigateToAccountPage()"></ion-icon>
+    </ion-button>
+  </ion-buttons>
+  <ion-title>BomPrato</ion-title>
+</ion-toolbar>
 
 <ion-content id="content">
   <menu-component></menu-component>
 </ion-content>
+
+<ion-footer class="ion-no-border">
+  <ion-toolbar id="footer-toolbar">
+      <ion-button id="footer-button">Pedido</ion-button>
+  </ion-toolbar>
+</ion-footer>

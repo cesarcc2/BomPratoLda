@@ -12,4 +12,7 @@ export class MenuPage implements OnInit {
   ngOnInit() {
   }
 
+  public navigateToAccountPage(){
+
+  }
 }
