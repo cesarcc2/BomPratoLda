@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ClientService } from '../services/client.service';
 import {Client} from '../models/client';
 import { AlertController } from '@ionic/angular';
+import {NavigationExtras, Router} from '@angular/router';
+
 
 
 @Component({
@@ -17,7 +19,7 @@ export class LoginPage implements OnInit {
 
   utilizadorLog: Client;
 
-  constructor(private ClientService:ClientService,public alertController: AlertController) {
+  constructor(private ClientService:ClientService,public alertController: AlertController,private router: Router) {
     this.ClientService.getClientes().subscribe((data) => {
       
       this.clientes=data['clients'];
@@ -58,19 +60,19 @@ export class LoginPage implements OnInit {
 
   verificaUtilizador(){
 
-    let userLogin;
-    userLogin = this.clientes.find(element => element.username === this.username)
-
-    if (userLogin === undefined){
+    if (!this.clientes.find(element => element.username === this.username)){
       //Mostrar alerta "Esse utilizador não existe!"
       this.usernameInvalido();
     } else {
+
+      let userLogin;
+        userLogin = this.clientes.find(element => element.username === this.username)
       
       if (userLogin.password == this.password) {
         console.log("Login com sucesso!")
         this.utilizadorLog = userLogin
         
-        //Mandar para página inicial 
+        this.router.navigate(['/home']);
         //Mandar dados do utilizador logado para a página inicial
        
       } else {
@@ -82,6 +84,11 @@ export class LoginPage implements OnInit {
 
     }
     console.log(this.utilizadorLog)
+  }
+
+  /**Redireciona o utilizador para a página de Registo */
+  pagRegisto(){
+    this.router.navigate(['/registo']);
   }
 
   
