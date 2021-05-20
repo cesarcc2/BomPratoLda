@@ -8,12 +8,15 @@ import { MenuPageRoutingModule } from './menu-routing.module';
 
 import { MenuPage } from './menu.page';
 import { MenuComponent } from '../../components/menu/menu.component'
+import { IonicPullupModule } from 'ionic-pullup';
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    MenuPageRoutingModule
+    MenuPageRoutingModule,
+    IonicPullupModule
   ],
   declarations: [MenuPage,MenuComponent]
 })

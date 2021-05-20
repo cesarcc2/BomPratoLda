@@ -7,12 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { ItemDetailsPageRoutingModule } from './item-details-routing.module';
 
 import { ItemDetailsPage } from './item-details.page';
+import { IonicPullupModule } from 'ionic-pullup';
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ItemDetailsPageRoutingModule
+    ItemDetailsPageRoutingModule,
+    IonicPullupModule
   ],
   declarations: [ItemDetailsPage]
 })

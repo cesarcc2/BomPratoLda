@@ -7,7 +7,8 @@ export interface Item {
     type: ItemType,
     editableIngredients: Ingredient[],
     unitPrice:number,
-    total:number
+    total:number,
+    quantity:number
 }   
 
 enum ItemType {

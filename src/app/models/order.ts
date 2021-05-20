@@ -12,7 +12,7 @@ export interface Order {
     state: OrderState
 }
 
-enum OrderState {
+export enum OrderState {
     Pending  = "pending",
     Processing   = "processing",
     Delivered  = "delivered"

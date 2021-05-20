@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { IonPullUpFooterState} from 'ionic-pullup';
 
 @Component({
   selector: 'app-menu',
@@ -7,12 +8,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MenuPage implements OnInit {
 
-  constructor() { }
+  footerState: IonPullUpFooterState;
+
+  constructor() {}
 
   ngOnInit() {
+    this.footerState = IonPullUpFooterState.Collapsed;
   }
 
-  public navigateToAccountPage(){
+  toggleFooter() {
+    this.footerState = this.footerState === IonPullUpFooterState.Collapsed ? IonPullUpFooterState.Expanded : IonPullUpFooterState.Collapsed;
+  }
+
+  public navigateToAccountPage() {
 
   }
 }

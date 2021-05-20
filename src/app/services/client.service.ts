@@ -9,9 +9,11 @@ import { catchError, map } from 'rxjs/operators';
 })
 export class ClientService {
 
+  public client: Client = {addresses:null,password:null,username:"guest"};
+
   constructor(private http:HttpClient) { }
 
-  getClientes() {
+  public getClientes() {
     return new Observable (observer => {
       fetch('https://run.mocky.io/v3/1adc4a85-3181-4653-a899-7efe454056f7')
       .then(resposta => resposta.json())
@@ -20,5 +22,9 @@ export class ClientService {
         observer.complete();
       });
     })
+  }
+
+  public setGuestAccount(){
+    return this.client;
   }
 }

@@ -7,62 +7,102 @@
   <ion-title>BomPrato</ion-title>
 </ion-toolbar>
 
-<ion-content id="content">
-  <ion-grid>
-    <ion-row>
-      <ion-col size="12" id="item-image">
-        <ion-img src="{{this.item.image}}"></ion-img>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col size="12" id="item-name">
-        <span>{{this.item.name}}</span>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col size="12" id="item-decription">
-        <span>{{this.item.description}}</span>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col size="12" id="item-quantity">
-        <ion-grid>
-          <ion-row *ngFor="let ingredient of this.item.editableIngredients; let ingredientIndex = index">
-            <ion-col>
-              <ion-grid>
-                <ion-row>
-                  <ion-col size="4" id="ingredient-name-wrapper">
-                    <span id="ingredient-name">{{ingredient.name}}</span>
-                  </ion-col>
-                  <ion-col size="4" id="quantity-icon-wrapper">
-                    <ion-icon class="quantity-icon" name="remove-circle" (click)="removeIngredientQuantity(item,ingredient)"></ion-icon>
-                      <span id="ingredient-quantity">{{ingredient.quantity}}</span>
-                    <ion-icon class="quantity-icon" name="add-circle" (click)="addIngredientQuantity(item,ingredient)"></ion-icon>
-                  </ion-col>
-                  <ion-col id="ingredient-price-wrapper">
-                    <span id="ingredient-unitPrice">{{ingredient.unitPrice}}€ /item</span>
-                  </ion-col>
-                </ion-row>
-              </ion-grid>
-            </ion-col>
-          </ion-row>
-        </ion-grid>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col size="4" id="item-price">
-       Preço:{{this.item.total | number : '1.2-2'}}€
-      </ion-col>
-      <ion-col size="4"></ion-col>
-      <ion-col size="4" id="add-button">
-        <ion-button>Adicionar</ion-button>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+<ion-content >
+  <ion-card id="content">
+    <ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <ion-col size="12" id="item-image-container">
+            <ion-img id="item-image" src="{{this.item.image}}"></ion-img>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <ion-grid id="item-text-content">
+        <ion-row>
+          <ion-col size="12" id="item-name">
+            <span>{{this.item.name}}</span>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="12" id="item-decription">
+            <span>{{this.item.description}}</span>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="12" id="item-quantity">
+            <ion-grid>
+              <ion-row *ngFor="let ingredient of this.item.editableIngredients; let ingredientIndex = index">
+                <ion-col id="item-quantity-wrapper">
+                  <ion-grid>
+                    <ion-row>
+                      <ion-col size="4" class="center">
+                        <span id="ingredient-name">{{ingredient.name}}</span>
+                      </ion-col>
+                      <ion-col size="4" class="center">
+                        <div class="ingredient-quantity-picker-box">
+                          <ion-icon class="ingredient-quantity-button-left" (click)="removeIngredientQuantity(item,ingredient)" name="remove-circle" ></ion-icon>
+                          <span>{{ingredient.quantity}}</span>
+                          <ion-icon class="ingredient-quantity-button-right" (click)="addIngredientQuantity(item,ingredient)" name="add-circle">
+                          </ion-icon>
+                        </div>
+                      </ion-col>
+                      <ion-col class="center">
+                        <span id="ingredient-unitPrice">{{ingredient.unitPrice}}€ /un</span>
+                      </ion-col>
+                    </ion-row>
+                  </ion-grid>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-col>
+        </ion-row>
+        <ion-row id="total-wrapper">
+          <ion-col class="left no-padding-vertical">
+            <span id="price">{{this.item.total | number : '1.2-2'}}€</span>
+          </ion-col>
+          <ion-col class="right no-padding-vertical no-padding-right">
+            <ion-button id="add-item-button" color="dark" (click)="addItem(item)">Adicionar</ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
 </ion-content>
 
-<ion-footer class="ion-no-border">
-  <ion-toolbar id="footer-toolbar">
-      <ion-button id="footer-button">Pedido</ion-button>
+<lib-ionic-pullup [(state)]="footerState" [toolbarTopMargin]="230" [minBottomVisible]="0">
+  <ion-toolbar id="footer-toolbar" (click)="toggleFooter()" #ionDragFooter>
+    <ion-icon id="footer-icon" [ngClass]="this.footerState === 0 ? '' : this.footerState === 1 ? 'invert' : ''"
+      name="chevron-up-outline"></ion-icon>
+    <ion-title>Pedido</ion-title>
   </ion-toolbar>
-</ion-footer>
+  <ion-content id="footer-content">
+    <div id="footer-item-list">
+      <div class="footer-item" *ngFor="let item of order.items">
+        <div class="footer-item-image-wrapper">
+          <ion-img class="footer-item-image" src="{{item.image}}"></ion-img>
+        </div>
+        <div class="footer-item-details-wrapper">
+          <div class="footer-item-details-top">
+            <ion-label class="footer-item-details-description">{{item.name}}</ion-label>
+            <ion-label class="footer-item-details-total">{{item.total| number : '1.2-2'}}€</ion-label>
+          </div>
+          <div class="footer-item-details-bottom">
+            <div class="footer-quantity-picker-box">
+              <ion-icon class="footer-item-quantity-button-left" (click)="removeItemQuantity(item)" name="remove-circle" ></ion-icon>
+              <span>{{item.quantity}}</span>
+              <ion-icon class="footer-item-quantity-button-right" (click)="addItemQuantity(item)" name="add-circle">
+              </ion-icon>
+            </div>
+            <ion-icon class="footer-item-delete" (click)="removeItem(item)" name="trash-bin-outline"></ion-icon>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="footer-bottom">
+      <div id="footer-total-wrapper">
+        <span>{{order.total| number : '1.2-2'}}€</span>
+        <ion-button color="dark">Encomendar</ion-button>
+      </div>
+    </div>
+  </ion-content>
+</lib-ionic-pullup>

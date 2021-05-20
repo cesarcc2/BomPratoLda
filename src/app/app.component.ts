@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { ClientService } from './services/client.service';
+import { OrderService } from './services/order.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +8,7 @@ import { Component } from '@angular/core';
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
-  constructor() {}
+  constructor(private ClientService:ClientService,private OrderService:OrderService) {
+    OrderService.create(ClientService.setGuestAccount());
+  }
 }

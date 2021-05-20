@@ -31,10 +31,16 @@ export class ItemsService {
         break;    
     }
 
+    let items: Item[] = [];
     return this.http.get<Item[]>(url, {})
       .pipe(
         map(res => {
-          return res["items"];
+          res['items'].forEach(item => {
+            item.quantity = 1;
+            items.push(item);
+          });
+          
+          return items;
         })
       );
   }
