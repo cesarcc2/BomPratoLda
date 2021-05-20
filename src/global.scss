@@ -103,7 +103,7 @@ ion-title{
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  max-width: 80%;
+  width: 100%;
   padding-right: 1rem;
 }
 
@@ -115,6 +115,10 @@ ion-title{
 
   .footer-item-details-description{
     font-weight: bold;
+  }
+
+  .footer-item-details-total{
+    float: right;
   }
 }
 
