@@ -81,10 +81,10 @@
     <ion-title>Pedido</ion-title>
   </ion-toolbar>
   <ion-content id="footer-content">
-    <div id="no-items-message-wrapper" *ngIf="order.items.length === 0">
+    <div id="no-items-message-wrapper" *ngIf="footerBodyState == 'empty'">
       <span>Nenhum item selecionado.</span>
     </div>
-    <div id="footer-item-list">
+    <div id="footer-item-list" *ngIf="footerBodyState === 'showItems'">
       <div class="footer-item" *ngFor="let item of order.items">
         <div class="footer-item-image-wrapper">
           <ion-img class="footer-item-image" src="{{item.image}}"></ion-img>
@@ -106,10 +106,33 @@
         </div>
       </div>
     </div>
-    <div id="footer-bottom" *ngIf="order.items.length > 0">
+    <div id="footer-choose-order-time-wrapper" *ngIf="footerBodyState === 'pickDeliveryTime'">
+      <ion-card>
+        <ion-card-content>
+          <ion-list>
+            <ion-radio-group value="now">
+              <ion-list-header>
+                <ion-label>Hora de entrega</ion-label>
+              </ion-list-header>
+
+              <ion-item>
+                <ion-label>Agora</ion-label>
+                <ion-radio slot="start" value="now"></ion-radio>
+              </ion-item>
+
+              <ion-item>
+                <ion-datetime placeholder="Escolher Hora" displayFormat="HH" [min]="timePickerMinAndMaxTime[0]" [max]="timePickerMinAndMaxTime[1]"></ion-datetime>
+                <ion-radio slot="start" value="orderTime"></ion-radio>
+              </ion-item>
+            </ion-radio-group>
+          </ion-list>
+        </ion-card-content>
+      </ion-card>
+    </div>
+    <div id="footer-bottom" *ngIf="footerBodyState == 'showItems' || footerBodyState == 'pickDeliveryTime'">
       <div id="footer-total-wrapper">
         <span>{{order.total| number : '1.2-2'}}€</span>
-        <ion-button color="dark">Encomendar</ion-button>
+        <ion-button color="dark" (click)="startOrder()">Encomendar</ion-button>
       </div>
     </div>
   </ion-content>

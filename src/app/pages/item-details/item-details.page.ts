@@ -13,12 +13,15 @@ import { OrderService } from 'src/app/services/order.service';
   templateUrl: './item-details.page.html',
   styleUrls: ['./item-details.page.scss'],
 })
+
 export class ItemDetailsPage implements OnInit {
 
   public order:Order;
   public item:Item;
 
+  public footerBodyState:FooterBodyState;
   footerState: IonPullUpFooterState;
+  timePickerMinAndMaxTime:Array<string> = [];
 
   constructor(private router: Router,private OrderService:OrderService,private NavController:NavController) {
     if (router.getCurrentNavigation().extras.state) {
@@ -27,6 +30,11 @@ export class ItemDetailsPage implements OnInit {
     this.item.total = this.item.unitPrice;
     }
     this.order = this.OrderService.order;
+    if(this.order.items.length > 0){
+      this.footerBodyState = FooterBodyState.ShowItems;
+    }else{
+      this.footerBodyState = FooterBodyState.Empty;
+    }
   }
 
   ngOnInit() {
@@ -35,10 +43,14 @@ export class ItemDetailsPage implements OnInit {
 
   public addItem(item:Item){
     this.OrderService.addItem(JSON.parse(JSON.stringify(item)));
+    this.footerBodyState = FooterBodyState.ShowItems;
   }
 
   public removeItem(item:Item){
     this.OrderService.removeItem(item);
+    if(this.order.items.length === 0){
+      this.footerBodyState = FooterBodyState.Empty;
+    }
   }
 
   public removeItemQuantity(item: Item) {
@@ -85,8 +97,36 @@ export class ItemDetailsPage implements OnInit {
 
   }
 
+  public startOrder(){
+    if(this.order.orderTimestamp == null){
+    this.footerBodyState = FooterBodyState.PickDeliveryTime;
+    this.timePickerMinAndMaxTime.push(this.getMinTimePickerDate(),this.getMaxTimePickerDate());
+    console.log(this.timePickerMinAndMaxTime);
+    }else{
+    this.OrderService.startOrder();
+    }
+
+  }
+
+  public getMinTimePickerDate(){
+    let date = new Date();
+    return date.toISOString();
+  }
+
+  public getMaxTimePickerDate(){
+    let date = new Date();
+    date.setHours(23,0,0);
+    return date.toISOString();
+  }
+
   public navigateBack(){
     console.log("A");
     this.NavController.navigateBack('/menu');
   }
+}
+
+export enum FooterBodyState {
+  Empty = "empty",
+  ShowItems = "showItems",
+  PickDeliveryTime = "pickDeliveryTime"
 }

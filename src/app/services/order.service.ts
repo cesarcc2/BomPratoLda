@@ -3,6 +3,7 @@ import { Order, OrderState } from  '../models/order';
 import { Item } from  '../models/item';
 import { Client } from '../models/client';
 import { Address } from '../models/address';
+import { NavController } from '@ionic/angular';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ export class OrderService {
   
   public order: Order = {client: null,items:[],address:null,state:null,deliveryTimestamp:null,orderTimestamp:null,total:null};
 
-  constructor() {}
+  constructor(private NavController:NavController) {}
 
   public create(client:Client){
     this.order.client = client;
@@ -52,6 +53,14 @@ export class OrderService {
     });
     console.log(counter);
     this.order.total = counter;
+  }
+
+  public startOrder(){
+    if(this.order.client.password == null){
+      this.NavController.navigateForward('/login');
+    }else{
+      this.NavController.navigateForward('/PickAddress');
+    }
   }
 
 }
