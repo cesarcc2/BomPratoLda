@@ -183,6 +183,18 @@ ion-title{
   }
 }
 
+#no-items-message-wrapper{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  span{
+    font-size: 1.5rem;
+    color: rgb(177, 177, 177);
+  }
+}
+
 // FOOTER END 
 
 app-menu{

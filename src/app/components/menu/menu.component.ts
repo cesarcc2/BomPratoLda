@@ -14,7 +14,7 @@ export class MenuComponent implements OnInit {
 
   public categories : Category[] = [];
   
-  constructor(private nav: NavController,private animationCtrl: AnimationController,private CategoryService: CategoryService,private ItemService: ItemsService) { 
+  constructor(private NavController: NavController,private animationCtrl: AnimationController,private CategoryService: CategoryService,private ItemService: ItemsService) { 
   }
 
   ngOnInit() {
@@ -22,7 +22,7 @@ export class MenuComponent implements OnInit {
   }
 
   public openItemPage(item:Item){
-    this.nav.navigateForward('/item-details', { state: {"item":item} });
+    this.NavController.navigateForward('/item-details', { state: {"item":item} });
   }
 
   public getCategories(){

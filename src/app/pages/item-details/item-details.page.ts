@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
+import { NavController } from '@ionic/angular';
 import { IonPullUpFooterState} from 'ionic-pullup';
 
 import { Ingredient } from 'src/app/models/ingredient';
@@ -19,7 +20,7 @@ export class ItemDetailsPage implements OnInit {
 
   footerState: IonPullUpFooterState;
 
-  constructor(private router: Router,private OrderService:OrderService) {
+  constructor(private router: Router,private OrderService:OrderService,private NavController:NavController) {
     if (router.getCurrentNavigation().extras.state) {
       const item = this.router.getCurrentNavigation().extras.state["item"];
     this.item = item;
@@ -82,5 +83,10 @@ export class ItemDetailsPage implements OnInit {
 
   public navigateToAccountPage(){
 
+  }
+
+  public navigateBack(){
+    console.log("A");
+    this.NavController.navigateBack('/menu');
   }
 }
