@@ -1,0 +1,124 @@
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { IonRadioGroup,NavController } from '@ionic/angular';
+import { IonPullUpFooterState} from 'ionic-pullup';
+import { Item } from 'src/app/models/item';
+import { Order } from 'src/app/models/order';
+import { OrderService } from 'src/app/services/order.service';
+
+@Component({
+  selector: 'app-menu',
+  templateUrl: './menu.page.html',
+  styleUrls: ['./menu.page.scss'],
+})
+export class MenuPage implements OnInit {
+  @ViewChild('radioButtonGroup') radioButtonDeliveryTime: IonRadioGroup;
+  
+  public items:Item[];
+  public order:Order;
+
+
+  public footerBodyState:FooterBodyState;
+  public footerState: IonPullUpFooterState;
+  public timePickerMinAndMaxTime:Array<string> = [];
+  public timePickerValue:Date = null;
+
+  constructor(private OrderService:OrderService,private NavController: NavController) {}
+
+  ngOnInit() {}
+
+
+  ionViewWillEnter(){
+    this.footerState = IonPullUpFooterState.Collapsed;
+
+    this.order = this.OrderService.order;
+    this.items = this.order.items;
+
+    if (this.order.items.length > 0) {
+      this.footerBodyState = FooterBodyState.ShowItems;
+    } else {
+      this.footerBodyState = FooterBodyState.Empty;
+    }
+  }
+
+  public navigateToAccountPage() {
+    this.NavController.navigateForward("/login");
+  }
+
+  
+  public removeItem(item: Item) {
+    this.OrderService.removeItem(item);
+    if (this.order.items.length === 0) {
+      this.footerBodyState = FooterBodyState.Empty;
+    }
+  }
+
+  public removeItemQuantity(item: Item) {
+    if (item.quantity > 1) {
+      item.quantity--;
+
+      item.total = 0;
+      item.editableIngredients.forEach(ingredient => {
+        item.total = item.total + (ingredient.quantity * ingredient.unitPrice)
+      });
+      item.total = (item.total + item.unitPrice) * item.quantity;
+      this.OrderService.updateTotal();
+    }
+  }
+
+  public addItemQuantity(item: Item) {
+    item.quantity++;
+    item.total = 0;
+    item.editableIngredients.forEach(ingredient => {
+      item.total = item.total + (ingredient.quantity * ingredient.unitPrice)
+    });
+    item.total = (item.total + item.unitPrice) * item.quantity;
+    this.OrderService.updateTotal();
+  }
+
+
+  toggleFooter() {
+    this.footerState = this.footerState === IonPullUpFooterState.Collapsed ? IonPullUpFooterState.Expanded : IonPullUpFooterState.Collapsed;
+  }
+
+
+  public startOrder() {
+    if (this.order.orderTimestamp == null) {
+      this.footerBodyState = FooterBodyState.PickDeliveryTime;
+      this.timePickerMinAndMaxTime.push(this.getMinTimePickerDate(), this.getMaxTimePickerDate());
+      console.log(this.timePickerMinAndMaxTime);
+    } else {
+      this.OrderService.startOrder();
+    }
+  }
+
+  public getMinTimePickerDate() {
+    let date = (new Date()).getTimezoneOffset() * 60000;
+    return (new Date(Date.now() - date)).toISOString().slice(0, -1);
+  }
+
+  public getMaxTimePickerDate() {
+    let date = new Date();
+    date.setHours(24, 0, 0);
+    return date.toISOString();
+  }
+
+  public radioGroupChange() {
+    if (this.radioButtonDeliveryTime.value == "now") {
+      this.OrderService.setOrderTimestamp(new Date());
+    } else {
+      this.OrderService.setOrderTimestamp(this.timePickerValue);
+    }
+    console.log(this.order);
+  }
+
+  public timePickerChange(event) {
+    this.timePickerValue = event.detail.value;
+  }
+
+  }
+
+  export enum FooterBodyState {
+    Empty = "empty",
+      ShowItems = "showItems",
+      PickDeliveryTime = "pickDeliveryTime"
+  }
