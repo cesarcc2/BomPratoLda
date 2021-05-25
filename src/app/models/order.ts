@@ -9,7 +9,8 @@ export interface Order {
     total: number,
     orderTimestamp: Date,
     deliveryTimestamp: Date,
-    state: OrderState
+    state: OrderState,
+    address: Address
 }
 
 export enum OrderState {

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Client } from '../models/client';
+import { Address } from '../models/address';
 import { Observable,throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
@@ -27,4 +28,17 @@ export class ClientService {
   public setGuestAccount(){
     return this.client;
   }
+  
+  /**Atualiza o cliente */
+  updateClient(client: Client){
+    this.client = client
+  }
+
+  /**Adiciona uma nova morada ao array das moradas do cliente */
+  addAddress(address: Address){
+    //this.client.addresses=[]
+    this.client.addresses.push(address)
+  }
+
+  
 }

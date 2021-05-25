@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Login</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <h1 id="titulo" class="ion-text-center" style="margin-top: 50px;">Bom Prato Lda</h1>
+
+  <div style="display: flex; justify-content: center; align-items: center; margin-bottom: 10%;">
+  <ion-icon name="restaurant-outline" class="foodIcon"></ion-icon>
+  </div>
+
+  <form>
+    <h5 style="margin-top: 10px; margin-left: 4%;">Username</h5>
+    <ion-item lines="none">
+            <ion-input type="text" [(ngModel)]="username" name="username" style="border: skyblue solid 2px;" required></ion-input>
+    </ion-item>
+
+    <h5 style="margin-top: 10px; margin-left: 4%;">Password</h5>
+    <ion-item lines="none">
+      <ion-input type="password" [(ngModel)]="password" name="password" style="border: skyblue solid 2px;" required></ion-input>
+    </ion-item>
+
+    <ion-grid>
+    <ion-row>
+      <ion-col>
+        <div style="display: flex; justify-content: center; align-items: center; margin-top: 30px;" >
+        <ion-button type="submit" strong="true" color="secondary" expand="block" (click)="verificaUtilizador()">Login</ion-button>
+      </div>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <div style="display: flex; justify-content: center; align-items: center;" >
+        <ion-button type="submit" strong="true" color="secondary" expand="block" (click)="pagRegisto()">Registo</ion-button>
+      </div>
+      </ion-col>
+    </ion-row>
+    </ion-grid>
+  </form>
+
+</ion-content>

@@ -1,0 +1,73 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Adicionar morada</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="orange-pastel">
+ <ion-card class="ion-margin-top">
+      <ion-card-header>
+        <ion-card-title>Adicione a sua morada</ion-card-title>
+        <ion-card-subtitle>Preencha os seguintes campos</ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate> 
+          <ion-item>
+            <ion-input formControlName="rua" type="text" placeholder="Nome da Rua"> 
+            </ion-input>
+        </ion-item>
+        <span class="error ion-padding" *ngIf="submitted && errorCtr.rua.errors?.required">
+          Campo vazio. Introduza a rua.
+        </span>
+
+        <ion-item>
+            <ion-input formControlName="porta" type="number" placeholder="Nº Porta"> 
+            </ion-input>
+        </ion-item>
+        <span class="error ion-padding" *ngIf="submitted && errorCtr.porta.errors?.required">
+          Campo vazio. Introduza a porta.
+        </span>
+
+        <ion-item>
+            <ion-input formControlName="piso" type="number" placeholder="Nº Piso"> 
+            </ion-input>
+        </ion-item>
+        <span class="error ion-padding" *ngIf="submitted && errorCtr.piso.errors?.required">
+          Campo vazio. Introduza o piso.
+        </span>
+
+        <ion-item>
+          <ion-input formControlName="cidade" type="text" placeholder="Cidade"> 
+          </ion-input>
+        </ion-item>
+        <span class="error ion-padding" *ngIf="submitted && errorCtr.cidade.errors?.required">
+          Campo vazio. Introduza a cidade.
+        </span>
+
+
+        <ion-item>
+          <ion-input formControlName="codpostal" type="text" placeholder="Código Postal (Ex: 4980-003)"> 
+          </ion-input>
+        </ion-item>
+        <span class="error ion-padding" *ngIf="submitted && errorCtr.codpostal.errors?.required">
+          Campo vazio. Introduza o código postal.
+        </span>
+        <span class="error ion-padding" *ngIf="submitted && errorCtr.codpostal.errors?.pattern">
+          Formato inválido.
+        </span>
+
+
+        </form>
+     </ion-card-content>
+
+    
+    </ion-card>
+
+    <ion-button type="submit" class="ion-margin" (click)="onSubmit()">
+      Guardar Morada
+    </ion-button>
+
+</ion-content>
