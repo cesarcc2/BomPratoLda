@@ -10,7 +10,6 @@ export interface Order {
     orderTimestamp: Date,
     deliveryTimestamp: Date,
     state: OrderState,
-    address: Address
 }
 
 export enum OrderState {
