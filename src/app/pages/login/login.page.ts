@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ClientService } from '../services/client.service';
-import {Client} from '../models/client';
+import { ClientService } from '../../services/client.service';
+import {Client} from '../../models/client';
 import { ToastController } from '@ionic/angular';
 import {NavigationExtras, Router} from '@angular/router';
-import { StorageService } from '../services/storage.service';
-import {Storage} from '@ionic/storage';
+import { StorageService } from '../../services/storage.service';
 
 
 

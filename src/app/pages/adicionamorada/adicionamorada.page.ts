@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {Client} from '../models/client';
-import {Address} from '../models/address';
-import { ClientService } from '../services/client.service';
+import {Client} from '../../models/client';
+import {Address} from '../../models/address';
+import { ClientService } from '../../services/client.service';
 import { Validators, FormBuilder, FormGroup, FormControl,ReactiveFormsModule } from '@angular/forms';
 import { Router} from '@angular/router';
 

@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ClientService } from '../services/client.service';
-import { OrderService } from '../services/order.service';
+import { ClientService } from '../../services/client.service';
+import { OrderService } from '../../services/order.service';
 import { Router} from '@angular/router';
 import { IonRadioGroup } from '@ionic/angular';
 

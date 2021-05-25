@@ -13,23 +13,19 @@ const routes: Routes = [
   },
   {
     path: 'login',
-    loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
+    loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule)
   },
   {
     path: 'registo',
-    loadChildren: () => import('./registo/registo.module').then( m => m.RegistoPageModule)
+    loadChildren: () => import('./pages/registo/registo.module').then( m => m.RegistoPageModule)
   },
   {
     path: 'adicionamorada',
-    loadChildren: () => import('./adicionamorada/adicionamorada.module').then( m => m.AdicionamoradaPageModule)
+    loadChildren: () => import('./pages/adicionamorada/adicionamorada.module').then( m => m.AdicionamoradaPageModule)
   },
   {
     path: 'moradas',
-    loadChildren: () => import('./moradas/moradas.module').then( m => m.MoradasPageModule)
-  },
-  {
-    path: 'pagamento',
-    loadChildren: () => import('./pagamento/pagamento.module').then( m => m.PagamentoPageModule)
+    loadChildren: () => import('./pages/moradas/moradas.module').then( m => m.MoradasPageModule)
   },
 ];
 
