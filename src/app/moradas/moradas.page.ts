@@ -20,7 +20,7 @@ export class MoradasPage implements OnInit {
   ngOnInit() {
 
     this.moradas=this.ClientService.client.addresses
-    console.log(this.moradas)
+  
   }
 
   pagMorada(){
