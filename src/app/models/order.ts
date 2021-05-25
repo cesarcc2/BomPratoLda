@@ -1,5 +1,6 @@
 import { Item } from './item';
 import { Client } from './client';
+import { Address } from './address';
 
 export interface Order {
     client: Client,
@@ -7,10 +8,11 @@ export interface Order {
     total: number,
     orderTimestamp: Date,
     deliveryTimestamp: Date,
-    state: OrderState
+    state: OrderState,
+    address: Address
 }
 
-enum OrderState {
+export enum OrderState {
     Pending  = "pending",
     Processing   = "processing",
     Delivered  = "delivered"

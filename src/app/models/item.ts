@@ -1,10 +1,15 @@
 import { Ingredient } from "./ingredient";
 
 export interface Item {
+
     name: string,
     description: string,
+    image: string,
     type: ItemType,
-    editableIngredients: Ingredient[]
+    editableIngredients: Ingredient[],
+    unitPrice:number,
+    total:number,
+    quantity:number
 }   
 
 enum ItemType {

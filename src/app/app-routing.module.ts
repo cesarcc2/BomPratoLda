@@ -23,6 +23,14 @@ const routes: Routes = [
     path: 'adicionamorada',
     loadChildren: () => import('./adicionamorada/adicionamorada.module').then( m => m.AdicionamoradaPageModule)
   },
+  {
+    path: 'moradas',
+    loadChildren: () => import('./moradas/moradas.module').then( m => m.MoradasPageModule)
+  },
+  {
+    path: 'pagamento',
+    loadChildren: () => import('./pagamento/pagamento.module').then( m => m.PagamentoPageModule)
+  },
 ];
 
 @NgModule({

@@ -10,7 +10,7 @@ import { catchError, map } from 'rxjs/operators';
 })
 export class ClientService {
 
-  public client: Client = {addresses:null,password:null,username:"guest"};
+  public client: Client = {addresses:[],password:null,username:"guest"};
 
   constructor(private http:HttpClient) { }
 
@@ -33,7 +33,9 @@ export class ClientService {
 
   /**Adiciona uma nova morada ao array das moradas do cliente */
   addAddress(address: Address){
-    this.client.addresses=[]
+    //this.client.addresses=[]
     this.client.addresses.push(address)
   }
+
+  
 }

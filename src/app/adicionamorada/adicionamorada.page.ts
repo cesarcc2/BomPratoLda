@@ -3,6 +3,8 @@ import {Client} from '../models/client';
 import {Address} from '../models/address';
 import { ClientService } from '../services/client.service';
 import { Validators, FormBuilder, FormGroup, FormControl,ReactiveFormsModule } from '@angular/forms';
+import { Router} from '@angular/router';
+
 
 
 
@@ -18,7 +20,7 @@ export class AdicionamoradaPage implements OnInit {
 
   //morada = <Address>{};
 
-  constructor(private ClientService:ClientService, public formBuilder: FormBuilder) { }
+  constructor(private ClientService:ClientService, public formBuilder: FormBuilder,private router: Router) { }
 
   ngOnInit() {
     this.form = this.formBuilder.group({
@@ -59,6 +61,8 @@ export class AdicionamoradaPage implements OnInit {
     this.ClientService.addAddress(morada)
     
     console.log(this.ClientService.client)
+
+    this.router.navigate(['/moradas']);
 
 
   }
