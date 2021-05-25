@@ -9,6 +9,8 @@ import { catchError, map } from 'rxjs/operators';
 })
 export class ClientService {
 
+  public client: Client = {addresses:null,password:null,username:"guest"};
+
   constructor(private http:HttpClient) { }
 
   getClientes() {
@@ -20,5 +22,9 @@ export class ClientService {
         observer.complete();
       });
     })
+  }
+
+  updateClient(client: Client){
+    this.client = client
   }
 }

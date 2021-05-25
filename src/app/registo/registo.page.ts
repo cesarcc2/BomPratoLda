@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {Client} from '../models/client';
 import { ClientService } from '../services/client.service';
-import { AlertController } from '@ionic/angular';
-import {NavigationExtras, Router} from '@angular/router';
+import { ToastController } from '@ionic/angular';
+import {Router} from '@angular/router';
+import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
+
 
 
 //Adicionar form validation para empty inputs
@@ -17,16 +19,18 @@ export class RegistoPage implements OnInit {
 
 
   clientes: any
-  nome: string
-  username: string
-  password: string
+
 
   novoUtilizador = <Client>{};
 
+  myForm: FormGroup;
+  submitted = false;
 
 
-  constructor(private ClientService:ClientService,public alertController: AlertController,private router: Router) { 
 
+  constructor(private ClientService:ClientService,public toastController: ToastController,private router: Router, public formBuilder: FormBuilder) { 
+
+    //tirar
     this.ClientService.getClientes().subscribe((data) => {
       
       this.clientes=data['clients'];
@@ -35,19 +39,21 @@ export class RegistoPage implements OnInit {
   }
 
   ngOnInit() {
+
+    this.myForm = this.formBuilder.group({
+      nome: ['', [Validators.required]],
+      username: ['', [Validators.required]],
+      password: ['', [Validators.required]]
+    })
   }
 
   /***Alerta para utilizador inexistente */
   async usernameExiste() {
-    const alert = await this.alertController.create({
-      cssClass: 'my-custom-class',
-      header: 'Erro',
-      message: `Este username já existe!`,
-      buttons: ['OK']
+    const toast = await this.toastController.create({
+      message: 'Este username já existe!',
+      duration: 2000
     });
-
-    await alert.present()
-  
+    toast.present();
   }
 
   
@@ -55,21 +61,46 @@ export class RegistoPage implements OnInit {
   registo(){
 
 
-    if (this.clientes.find(element => element.username === this.username)){
+    if (this.clientes.find(element => element.username === this.myForm.value.username)){
       this.usernameExiste()
     } else {
-      this.novoUtilizador.username=this.username
-      this.novoUtilizador.password=this.password
-      this.novoUtilizador.addresses=[]
+      
+      let client: Client = {
+        username: this.myForm.value.username,
+        password: this.myForm.value.password,
+        addresses: []
+        }
+
      
-      this.clientes.push(this.novoUtilizador)
+        /*
+      this.ClientService.client.username=this.username
+      this.ClientService.client.password=this.password
+      this.ClientService.client.addresses=[]*/
+
+      
+      this.ClientService.updateClient(client)
+
+      this.router.navigate(['/home']);
     }
-    console.log(this.clientes)
+  
   }
 
   /**Redireciona o utilizador para a página de Registo */
   pagLogin(){
     this.router.navigate(['/login']);
+  }
+
+  get errorCtr() {
+    return this.myForm.controls;
+  }
+
+  onSubmit() {
+    this.submitted = true;
+    if (!this.myForm.valid) {
+      return false;
+    } else {
+      this.registo()
+    }
   }
 
 }

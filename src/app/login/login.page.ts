@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ClientService } from '../services/client.service';
 import {Client} from '../models/client';
-import { AlertController } from '@ionic/angular';
+import { ToastController } from '@ionic/angular';
 import {NavigationExtras, Router} from '@angular/router';
+import { StorageService } from '../services/storage.service';
+import {Storage} from '@ionic/storage';
+
 
 
 
@@ -19,7 +22,7 @@ export class LoginPage implements OnInit {
 
   utilizadorLog: Client;
 
-  constructor(private ClientService:ClientService,public alertController: AlertController,private router: Router) {
+  constructor(private ClientService:ClientService,private StorageService:StorageService,public toastController: ToastController,private router: Router) {
     this.ClientService.getClientes().subscribe((data) => {
       
       this.clientes=data['clients'];
@@ -29,33 +32,28 @@ export class LoginPage implements OnInit {
   }
 
   ngOnInit() {
-  }
-
-  /**Alerta para palavra-passe errada */
-  async presentAlert() {
-    const alert = await this.alertController.create({
-      cssClass: 'my-custom-class',
-      header: 'Erro',
-      message: 'Palavra-passe incorreta. Tenta outra vez!',
-      buttons: ['OK']
-    });
-
-    await alert.present();
-
+    if(this.ClientService.client.username!="guest"){
+      this.router.navigate(['/home']);
+    }
 
   }
 
-  /***Alerta para utilizador inexistente */
-  async usernameInvalido() {
-    const alert = await this.alertController.create({
-      cssClass: 'my-custom-class',
-      header: 'Erro',
-      message: `Este utilizador não existe!`,
-      buttons: ['OK']
-    });
 
-    await alert.present()
+  async passwordErrada() {
+    const toast = await this.toastController.create({
+      message: 'Palavra-passe incorreta. Tenta outra vez!!',
+      duration: 2000
+    });
+    toast.present();
+  }
+
   
+  async usernameInvalido() {
+    const toast = await this.toastController.create({
+      message: 'Este utilizador não existe!',
+      duration: 2000
+    });
+    toast.present();
   }
 
   verificaUtilizador(){
@@ -71,20 +69,25 @@ export class LoginPage implements OnInit {
       if (userLogin.password == this.password) {
         console.log("Login com sucesso!")
         this.utilizadorLog = userLogin
+
+        this.StorageService.set('username','teste')
+
         
-        this.router.navigate(['/home']);
-        //Mandar dados do utilizador logado para a página inicial
        
+        this.router.navigate(['/home']);
+
+        //Coloca key-value na storage
+        
       } else {
       
         console.log("Login erro")
-        this.presentAlert()
+        this.passwordErrada()
         
       }
 
     }
-    console.log(this.utilizadorLog)
   }
+
 
   /**Redireciona o utilizador para a página de Registo */
   pagRegisto(){
