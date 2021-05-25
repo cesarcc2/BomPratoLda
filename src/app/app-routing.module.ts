@@ -19,6 +19,10 @@ const routes: Routes = [
     path: 'registo',
     loadChildren: () => import('./registo/registo.module').then( m => m.RegistoPageModule)
   },
+  {
+    path: 'adicionamorada',
+    loadChildren: () => import('./adicionamorada/adicionamorada.module').then( m => m.AdicionamoradaPageModule)
+  },
 ];
 
 @NgModule({
