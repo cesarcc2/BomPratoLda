@@ -1,6 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { NavController } from '@ionic/angular';
+import { IonRadioGroup, NavController } from '@ionic/angular';
 import { IonPullUpFooterState} from 'ionic-pullup';
 
 import { Ingredient } from 'src/app/models/ingredient';
@@ -16,23 +16,27 @@ import { OrderService } from 'src/app/services/order.service';
 
 export class ItemDetailsPage implements OnInit {
 
+  @ViewChild('radioButtonGroup') radioButtonDeliveryTime: IonRadioGroup;
+  
   public order:Order;
   public item:Item;
 
   public footerBodyState:FooterBodyState;
-  footerState: IonPullUpFooterState;
-  timePickerMinAndMaxTime:Array<string> = [];
+  public footerState: IonPullUpFooterState;
+  public timePickerMinAndMaxTime:Array<string> = [];
+  public timePickerValue:Date = null;
 
-  constructor(private router: Router,private OrderService:OrderService,private NavController:NavController) {
+
+  constructor(private router: Router, private OrderService: OrderService, private NavController: NavController) {
     if (router.getCurrentNavigation().extras.state) {
       const item = this.router.getCurrentNavigation().extras.state["item"];
-    this.item = item;
-    this.item.total = this.item.unitPrice;
+      this.item = item;
+      this.item.total = this.item.unitPrice;
     }
     this.order = this.OrderService.order;
-    if(this.order.items.length > 0){
+    if (this.order.items.length > 0) {
       this.footerBodyState = FooterBodyState.ShowItems;
-    }else{
+    } else {
       this.footerBodyState = FooterBodyState.Empty;
     }
   }
@@ -41,14 +45,37 @@ export class ItemDetailsPage implements OnInit {
     this.footerState = IonPullUpFooterState.Collapsed;
   }
 
-  public addItem(item:Item){
+  public addItem(item: Item) {
     this.OrderService.addItem(JSON.parse(JSON.stringify(item)));
     this.footerBodyState = FooterBodyState.ShowItems;
   }
 
-  public removeItem(item:Item){
+  public addIngredientQuantity(item: Item, ingredient: Ingredient) {
+    item.editableIngredients[item.editableIngredients.indexOf(ingredient)].quantity++;
+    item.total = item.total + ingredient.unitPrice;
+  }
+
+  public removeIngredientQuantity(item: Item, ingredient: Ingredient) {
+    if (item.editableIngredients[item.editableIngredients.indexOf(ingredient)].quantity > 0) {
+      item.editableIngredients[item.editableIngredients.indexOf(ingredient)].quantity--;
+      item.total = item.total - ingredient.unitPrice;
+    }
+  }
+
+  public navigateBack() {
+    this.NavController.navigateBack('/menu');
+  }
+
+
+  public navigateToAccountPage() {
+
+  }
+
+
+
+  public removeItem(item: Item) {
     this.OrderService.removeItem(item);
-    if(this.order.items.length === 0){
+    if (this.order.items.length === 0) {
       this.footerBodyState = FooterBodyState.Empty;
     }
   }
@@ -66,67 +93,60 @@ export class ItemDetailsPage implements OnInit {
     }
   }
 
-  public addItemQuantity(item:Item){
+  public addItemQuantity(item: Item) {
     item.quantity++;
     item.total = 0;
-    item.editableIngredients.forEach(ingredient=>{
+    item.editableIngredients.forEach(ingredient => {
       item.total = item.total + (ingredient.quantity * ingredient.unitPrice)
     });
     item.total = (item.total + item.unitPrice) * item.quantity;
     this.OrderService.updateTotal();
   }
 
-  public addIngredientQuantity(item:Item,ingredient:Ingredient){
-    item.editableIngredients[item.editableIngredients.indexOf(ingredient)].quantity++;
-    item.total = item.total + ingredient.unitPrice;
-  }
-
-  public removeIngredientQuantity(item:Item,ingredient:Ingredient){
-    if(item.editableIngredients[item.editableIngredients.indexOf(ingredient)].quantity > 0){
-      item.editableIngredients[item.editableIngredients.indexOf(ingredient)].quantity--;
-      item.total = item.total - ingredient.unitPrice;
-    }
-    
-  }
 
   toggleFooter() {
     this.footerState = this.footerState === IonPullUpFooterState.Collapsed ? IonPullUpFooterState.Expanded : IonPullUpFooterState.Collapsed;
   }
 
-  public navigateToAccountPage(){
 
-  }
-
-  public startOrder(){
-    if(this.order.orderTimestamp == null){
-    this.footerBodyState = FooterBodyState.PickDeliveryTime;
-    this.timePickerMinAndMaxTime.push(this.getMinTimePickerDate(),this.getMaxTimePickerDate());
-    console.log(this.timePickerMinAndMaxTime);
-    }else{
-    this.OrderService.startOrder();
+  public startOrder() {
+    if (this.order.orderTimestamp == null) {
+      this.footerBodyState = FooterBodyState.PickDeliveryTime;
+      this.timePickerMinAndMaxTime.push(this.getMinTimePickerDate(), this.getMaxTimePickerDate());
+      console.log(this.timePickerMinAndMaxTime);
+    } else {
+      this.OrderService.startOrder();
     }
-
   }
 
-  public getMinTimePickerDate(){
+  public getMinTimePickerDate() {
+    let date = (new Date()).getTimezoneOffset() * 60000;
+    return (new Date(Date.now() - date)).toISOString().slice(0, -1);
+  }
+
+  public getMaxTimePickerDate() {
     let date = new Date();
+    date.setHours(24, 0, 0);
     return date.toISOString();
   }
 
-  public getMaxTimePickerDate(){
-    let date = new Date();
-    date.setHours(23,0,0);
-    return date.toISOString();
+  public radioGroupChange() {
+    if (this.radioButtonDeliveryTime.value == "now") {
+      this.OrderService.setOrderTimestamp(new Date());
+    } else {
+      this.OrderService.setOrderTimestamp(this.timePickerValue);
+    }
+    console.log(this.order);
   }
 
-  public navigateBack(){
-    console.log("A");
-    this.NavController.navigateBack('/menu');
+  public timePickerChange(event) {
+    this.timePickerValue = event.detail.value;
   }
-}
 
-export enum FooterBodyState {
-  Empty = "empty",
-  ShowItems = "showItems",
-  PickDeliveryTime = "pickDeliveryTime"
-}
+  }
+
+  export enum FooterBodyState {
+    Empty = "empty",
+      ShowItems = "showItems",
+      PickDeliveryTime = "pickDeliveryTime"
+  }

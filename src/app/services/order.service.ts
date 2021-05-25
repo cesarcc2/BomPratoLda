@@ -51,11 +51,11 @@ export class OrderService {
     this.order.items.forEach(item =>{
       counter = counter + item.total;
     });
-    console.log(counter);
     this.order.total = counter;
   }
 
   public startOrder(){
+    this.setOrderTimestamp(new Date());
     if(this.order.client.password == null){
       this.NavController.navigateForward('/login');
     }else{

@@ -110,7 +110,7 @@
       <ion-card>
         <ion-card-content>
           <ion-list>
-            <ion-radio-group value="now">
+            <ion-radio-group value="now" #radioButtonGroup (ionChange)="radioGroupChange()">
               <ion-list-header>
                 <ion-label>Hora de entrega</ion-label>
               </ion-list-header>
@@ -121,8 +121,8 @@
               </ion-item>
 
               <ion-item>
-                <ion-datetime placeholder="Escolher Hora" displayFormat="HH" [min]="timePickerMinAndMaxTime[0]" [max]="timePickerMinAndMaxTime[1]"></ion-datetime>
-                <ion-radio slot="start" value="orderTime"></ion-radio>
+                <ion-datetime placeholder="Escolher Hora" displayFormat="HH:mm" [min]="timePickerMinAndMaxTime[0]" [max]="timePickerMinAndMaxTime[1]" (ionChange)="timePickerChange($event)"></ion-datetime>
+                <ion-radio slot="start" value="customTime"></ion-radio>
               </ion-item>
             </ion-radio-group>
           </ion-list>

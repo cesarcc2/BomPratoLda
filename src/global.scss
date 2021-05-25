@@ -31,6 +31,7 @@ ion-content{
 }
 
 #header-toolbar{
+  color:black;
   box-shadow: 1px 7px 15px -9px #00000095;
   --background: rgba(255, 255, 255, 0.789);  
   // backdrop-filter: blur(3px);
@@ -51,6 +52,7 @@ ion-content{
 // FOOTER 
 
 #footer-toolbar{
+  color:black;
   padding-top: 0.7rem;
   padding-bottom: 0.7rem;
   border-top-left-radius: 1rem;
@@ -88,6 +90,7 @@ ion-title{
 }
 
 .footer-item{
+  color:black;
   display: flex;
   padding:1rem;
   border-radius: 1rem;
@@ -168,6 +171,7 @@ ion-title{
   align-items: center;
 
   #footer-total-wrapper{
+    color:black;
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -196,6 +200,15 @@ ion-title{
   span{
     font-size: 1.5rem;
     color: rgb(177, 177, 177);
+  }
+}
+
+#footer-choose-order-time-wrapper{
+  height: 80%;
+  ion-card{
+    width: 90%;
+    margin: auto;
+    margin-top: 1rem;
   }
 }
 
