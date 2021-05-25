@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { IonRadioGroup } from '@ionic/angular';
+import { IonRadioGroup,NavController } from '@ionic/angular';
 import { IonPullUpFooterState} from 'ionic-pullup';
 import { Item } from 'src/app/models/item';
 import { Order } from 'src/app/models/order';
@@ -22,7 +22,7 @@ export class MenuPage implements OnInit {
   public timePickerMinAndMaxTime:Array<string> = [];
   public timePickerValue:Date = null;
 
-  constructor(private OrderService:OrderService) {}
+  constructor(private OrderService:OrderService,private NavController: NavController) {}
 
   ngOnInit() {}
 
@@ -41,7 +41,7 @@ export class MenuPage implements OnInit {
   }
 
   public navigateToAccountPage() {
-
+    this.NavController.navigateForward("/login");
   }
 
   

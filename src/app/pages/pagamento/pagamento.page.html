@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Pagamento</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-list >
+    <ion-radio-group (ionChange)="selectPagamento()" #pagamentoRadioGroup value="pagamento">
+     
+      <ion-item>
+        <ion-label>Multibanco</ion-label>
+        <ion-radio slot="start" value="multibanco"></ion-radio>
+      </ion-item>
+  
+      <ion-item>
+        <ion-label>Paypal</ion-label>
+        <ion-radio slot="start" value="paypal"></ion-radio>
+      </ion-item>
+  
+      <ion-item>
+        <ion-label>MBWay</ion-label>
+        <ion-radio slot="start" value="mbway"></ion-radio>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Dinheiro</ion-label>
+        <ion-radio slot="start" value="dinheiro"></ion-radio>
+      </ion-item>
+
+    </ion-radio-group>
+  </ion-list>
+
+  <ion-button class="ion-margin" (click)="terminar()">
+    Terminar
+   </ion-button>
+
+  
+</ion-content>

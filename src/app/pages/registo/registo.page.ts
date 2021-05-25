@@ -80,7 +80,7 @@ export class RegistoPage implements OnInit {
       
       this.ClientService.updateClient(client)
 
-      this.router.navigate(['/home']);
+      this.router.navigate(['/menu']);
     }
   
   }

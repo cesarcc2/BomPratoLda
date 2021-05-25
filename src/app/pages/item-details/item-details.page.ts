@@ -68,7 +68,7 @@ export class ItemDetailsPage implements OnInit {
 
 
   public navigateToAccountPage() {
-
+    this.NavController.navigateForward("/login");
   }
 
 

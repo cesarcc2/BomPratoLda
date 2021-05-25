@@ -32,7 +32,7 @@ export class LoginPage implements OnInit {
 
   ngOnInit() {
     if(this.ClientService.client.username!="guest"){
-      this.router.navigate(['/home']);
+      this.router.navigate(['/menu']);
     }
 
   }
@@ -73,7 +73,7 @@ export class LoginPage implements OnInit {
 
         
        
-        this.router.navigate(['/home']);
+        this.router.navigate(['/menu']);
 
         //Coloca key-value na storage
         
