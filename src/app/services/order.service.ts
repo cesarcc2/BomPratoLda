@@ -10,7 +10,7 @@ import { NavController } from '@ionic/angular';
 })
 export class OrderService {
   
-  public order: Order = {client: null,items:[],address:null,state:null,deliveryTimestamp:null,orderTimestamp:null,total:null};
+  public order: Order = {client: null,items:[],address:null,state:null,deliveryTimestamp:null,orderTimestamp:null,total:null,paymentType:null};
 
   constructor(private NavController:NavController) {}
 
@@ -32,6 +32,10 @@ export class OrderService {
 
   public setAddress(address:Address){
     this.order.address = address;
+  }
+
+  public setPaymentType(type: string){
+    this.order.paymentType = type;
   }
 
   public setState(orderState:OrderState){

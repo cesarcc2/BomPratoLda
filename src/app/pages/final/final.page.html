@@ -1,0 +1,103 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Finalizar encomenda</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+
+
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Itens</ion-card-title>
+      </ion-card-header>
+    
+      <ion-card-content>
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <span>Itens: {{order.items}} </span>
+            </ion-col>
+    
+          </ion-row>
+
+          <ion-row>
+            <ion-col>
+              <span> Valor Total: {{order.total}}  </span>
+            </ion-col>
+  
+          </ion-row>
+
+          <ion-row>
+            <ion-col>
+              <span>Hora do pedido: {{order.orderTimestamp}} </span>
+            </ion-col>
+          </ion-row>
+
+        </ion-grid>
+      </ion-card-content>
+
+
+    </ion-card>
+
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Morada</ion-card-title>
+      </ion-card-header>
+    
+      <ion-card-content>
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <span>Rua: {{order.address.street}} </span>
+            </ion-col>
+    
+          </ion-row>
+
+          <ion-row>
+           
+            <ion-col>
+              <span> Número Porta: {{order.address.doorNumber}}  </span>
+            </ion-col>
+            <ion-col>
+              <span>Piso: {{order.address.floor}}</span>  
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>
+              <span>Cidade: {{order.address.city}} </span>
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>
+              <span>Código Postal: {{order.address.postalCode}} </span>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+
+      <ion-card-header>
+        <ion-card-title>Pagamento</ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content>
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <span>Tipo de Pagamento: {{order.paymentType}} </span>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+
+
+    </ion-card>
+    
+
+  <ion-button color="primary" (click)="finish()">Encomendar</ion-button>
+ 
+
+</ion-content>

@@ -10,7 +10,7 @@ import { catchError, map } from 'rxjs/operators';
 })
 export class ClientService {
 
-  public client: Client = {addresses:null,password:null,username:"guest"};
+  public client: Client = {addresses:[],password:null,username:"guest"};
 
   constructor(private http:HttpClient) { }
 
