@@ -1,0 +1,30 @@
+ion-card{
+    background: white;
+}
+
+.wrapper{
+    display: flex;
+    .radio-col{
+        display: flex;
+        float: left;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .payment-col{
+        display: flex;
+        float: right;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+ion-radio {
+    --color-checked:black;
+}
+
+ion-footer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

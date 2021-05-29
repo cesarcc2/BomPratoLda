@@ -10,13 +10,19 @@ import { NavController } from '@ionic/angular';
 })
 export class OrderService {
   
-  public order: Order = {client: null,items:[],address:null,state:null,deliveryTimestamp:null,orderTimestamp:null,total:null};
+  public order: Order = {client: null,items:[],address:null,state:null,deliveryTimestamp:null,orderTimestamp:null,total:null,paymentMethod:null};
 
   constructor(private NavController:NavController) {}
 
   public create(client:Client){
     this.order.client = client;
     this.order.state = OrderState.Pending;
+    this.order.items = [];
+    this.order.address = null;
+    this.order.deliveryTimestamp = null;
+    this.order.orderTimestamp = null;
+    this.order.total = null;
+    this.order.paymentMethod = null;
   }
 
   public addItem(item:Item){
@@ -32,6 +38,10 @@ export class OrderService {
 
   public setAddress(address:Address){
     this.order.address = address;
+  }
+
+  public setPaymentMethod(paymentMethod:string){
+    this.order.paymentMethod = paymentMethod;
   }
 
   public setState(orderState:OrderState){
@@ -54,12 +64,19 @@ export class OrderService {
     this.order.total = counter;
   }
 
+  public updateClient(client:Client){
+    this.order.client = client;
+  }
+
   public startOrder(){
     this.setOrderTimestamp(new Date());
+
     if(this.order.client.password == null){
+      this.setState(OrderState.WaitingLogin);
       this.NavController.navigateForward('/login');
     }else{
-      this.NavController.navigateForward('/PickAddress');
+      this.setState(OrderState.Processing);
+      this.NavController.navigateForward('/moradas');
     }
   }
 

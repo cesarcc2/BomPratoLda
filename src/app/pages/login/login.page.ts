@@ -70,8 +70,8 @@ export class LoginPage implements OnInit {
         this.utilizadorLog = userLogin
 
         this.StorageService.set('username','teste')
-
-        
+      
+        this.ClientService.updateClient({username:this.username ,password:this.password ,addresses:[]});
        
         this.router.navigate(['/menu']);
 
@@ -87,6 +87,9 @@ export class LoginPage implements OnInit {
     }
   }
 
+  navigateToMenu(){
+    this.router.navigate(['/menu']);
+  }
 
   /**Redireciona o utilizador para a página de Registo */
   pagRegisto(){

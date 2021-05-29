@@ -2,8 +2,11 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { IonRadioGroup,NavController } from '@ionic/angular';
 import { IonPullUpFooterState} from 'ionic-pullup';
 import { Item } from 'src/app/models/item';
-import { Order } from 'src/app/models/order';
+import { Order, OrderState } from 'src/app/models/order';
 import { OrderService } from 'src/app/services/order.service';
+import { AlertController } from '@ionic/angular';
+import { ClientService } from '../../services/client.service';
+
 
 @Component({
   selector: 'app-menu',
@@ -13,6 +16,7 @@ import { OrderService } from 'src/app/services/order.service';
 export class MenuPage implements OnInit {
   @ViewChild('radioButtonGroup') radioButtonDeliveryTime: IonRadioGroup;
   
+  public loggedIn: boolean = false;
   public items:Item[];
   public order:Order;
 
@@ -22,12 +26,47 @@ export class MenuPage implements OnInit {
   public timePickerMinAndMaxTime:Array<string> = [];
   public timePickerValue:Date = null;
 
-  constructor(private OrderService:OrderService,private NavController: NavController) {}
+  constructor(private OrderService:OrderService,private NavController: NavController,public alertController: AlertController,public ClientService:ClientService) {}
 
   ngOnInit() {}
 
 
+  async presentAlertMultipleButtons() {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Logout?',
+      subHeader: this.OrderService.order.client.username,
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+          }
+        }, {
+          text: 'Confirm',
+          handler: () => {
+            this.ClientService.updateClient({username:"guest",password:null,addresses:[]});
+            this.OrderService.updateClient({username:"guest",password:null,addresses:[]});
+            this.loggedIn = false;
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
   ionViewWillEnter(){
+    if(this.OrderService.order.client.password != null){
+      this.loggedIn = true;
+      console.log(this.OrderService.order);
+    } 
+
+    if(this.OrderService.order.state == OrderState.WaitingLogin && this.loggedIn){
+      this.OrderService.startOrder();
+    }
+
     this.footerState = IonPullUpFooterState.Collapsed;
 
     this.order = this.OrderService.order;
@@ -40,8 +79,13 @@ export class MenuPage implements OnInit {
     }
   }
 
-  public navigateToAccountPage() {
-    this.NavController.navigateForward("/login");
+  public accountButton() {
+    if(this.loggedIn){
+      this.presentAlertMultipleButtons();
+    }else{
+      this.NavController.navigateForward("/login");
+    }
+
   }
 
   
@@ -87,7 +131,9 @@ export class MenuPage implements OnInit {
       this.timePickerMinAndMaxTime.push(this.getMinTimePickerDate(), this.getMaxTimePickerDate());
       console.log(this.timePickerMinAndMaxTime);
     } else {
-      this.OrderService.startOrder();
+      if(this.order.orderTimestamp != null){
+        this.OrderService.startOrder();
+      }
     }
   }
 

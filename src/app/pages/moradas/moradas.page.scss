@@ -1,0 +1,38 @@
+#container{
+    display: flex;
+    justify-content: space-between;
+}
+
+ion-card{
+    background-color: white;
+}
+
+.wrapper-address{
+    display: flex;
+}
+
+.radio-col{
+    float: left;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.address-info-col{
+    float:right;
+}
+
+.no-addresses-found{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+ion-radio{
+    --color-checked:black;
+}
+
+ion-footer{
+    display: flex;
+    justify-content: space-between;
+}

@@ -2,7 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ClientService } from '../../services/client.service';
 import { OrderService } from '../../services/order.service';
 import { Router} from '@angular/router';
-import { IonRadioGroup } from '@ionic/angular';
+import { IonRadioGroup, NavController } from '@ionic/angular';
+import { Address } from 'src/app/models/address';
 
 
 
@@ -14,8 +15,8 @@ import { IonRadioGroup } from '@ionic/angular';
 export class MoradasPage implements OnInit {
 
   @ViewChild("moradasRadioGroup") moradaRadioB: IonRadioGroup
-  moradas: any
-  constructor(private ClientService:ClientService, private OrderService:OrderService,private router: Router) { }
+  moradas: Address[];
+  constructor(private ClientService:ClientService, private OrderService:OrderService,private router: Router,public nav:NavController) { }
 
   ngOnInit() {
 
@@ -37,4 +38,7 @@ export class MoradasPage implements OnInit {
     this.router.navigate(['/pagamento']);
   }
 
+  navigateBack(){
+    this.nav.navigateBack('/menu');
+  }
 }

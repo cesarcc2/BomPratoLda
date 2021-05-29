@@ -1,17 +1,15 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Adicionar morada</ion-title>
-    <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
-
+<ion-toolbar id="header-toolbar">
+  <ion-buttons slot="secondary" (click)="navigateBack()">
+    <ion-button color="secondary">
+      <ion-icon class="header-icon" slot="icon-only" name="chevron-back-outline"></ion-icon>
+    </ion-button>
+  </ion-buttons>
+  <ion-title>BomPrato</ion-title>
+</ion-toolbar>
 <ion-content class="orange-pastel">
  <ion-card class="ion-margin-top">
       <ion-card-header>
-        <ion-card-title>Adicione a sua morada</ion-card-title>
-        <ion-card-subtitle>Preencha os seguintes campos</ion-card-subtitle>
+        <ion-card-title>Adicione a morada</ion-card-title>
       </ion-card-header>
       <ion-card-content>
         <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate> 
@@ -66,8 +64,10 @@
     
     </ion-card>
 
-    <ion-button type="submit" class="ion-margin" (click)="onSubmit()">
-      Guardar Morada
-    </ion-button>
-
 </ion-content>
+
+<ion-footer>
+  <ion-button color="light" type="submit" class="ion-margin" (click)="onSubmit()">
+    Guardar Morada
+  </ion-button>
+</ion-footer>

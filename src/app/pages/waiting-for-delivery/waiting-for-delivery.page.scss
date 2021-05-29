@@ -1,0 +1,16 @@
+
+#content{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 2rem;
+    padding: 1rem;
+    border-radius: 1rem;
+    background-color: white;
+    span{
+        text-align: center;
+        font-size: 1.2rem;
+        margin-bottom: 2rem;
+    }
+}

@@ -1,40 +1,37 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Pagamento</ion-title>
-  </ion-toolbar>
-</ion-header>
-
+<ion-toolbar id="header-toolbar">
+  <ion-buttons slot="secondary" (click)="navigateBack()">
+    <ion-button color="secondary">
+      <ion-icon class="header-icon" slot="icon-only" name="chevron-back-outline"></ion-icon>
+    </ion-button>
+  </ion-buttons>
+  <ion-title>BomPrato</ion-title>
+</ion-toolbar>
 <ion-content>
-
-  <ion-list >
-    <ion-radio-group (ionChange)="selectPagamento()" #pagamentoRadioGroup value="pagamento">
-     
-      <ion-item>
-        <ion-label>Multibanco</ion-label>
-        <ion-radio slot="start" value="multibanco"></ion-radio>
-      </ion-item>
-  
-      <ion-item>
-        <ion-label>Paypal</ion-label>
-        <ion-radio slot="start" value="paypal"></ion-radio>
-      </ion-item>
-  
-      <ion-item>
-        <ion-label>MBWay</ion-label>
-        <ion-radio slot="start" value="mbway"></ion-radio>
-      </ion-item>
-
-      <ion-item>
-        <ion-label>Dinheiro</ion-label>
-        <ion-radio slot="start" value="dinheiro"></ion-radio>
-      </ion-item>
-
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>
+        Pagamento
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-radio-group (ionChange)="selectPagamento()" #pagamentoRadioGroup value="pagamento">
+      <div class="wrapper" *ngFor="let paymentMethods of ['Multibanco','Paypal','MBWay','Dinheiro']" >
+        <div class="radio-col">
+          <ion-item>
+          <ion-radio mode="md" slot="start" value="{{paymentMethods}}"></ion-radio>
+        </ion-item>
+        </div>
+        <div class="payment-col">
+          <span>{{paymentMethods}}</span>
+        </div>
+      </div>
     </ion-radio-group>
-  </ion-list>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
 
-  <ion-button class="ion-margin" (click)="terminar()">
+<ion-footer>
+  <ion-button color="light" class="ion-margin" (click)="terminar()">
     Terminar
    </ion-button>
-
-  
-</ion-content>
+</ion-footer>

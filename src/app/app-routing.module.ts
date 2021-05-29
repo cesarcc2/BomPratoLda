@@ -34,6 +34,14 @@ const routes: Routes = [
   {
     path: 'pagamento',
     loadChildren: () => import('./pages/pagamento/pagamento.module').then( m => m.PagamentoPageModule)
+  },
+  {
+    path: 'buy-resume',
+    loadChildren: () => import('./pages/buy-resume/buy-resume.module').then( m => m.BuyResumePageModule)
+  },
+  {
+    path: 'waiting-for-delivery',
+    loadChildren: () => import('./pages/waiting-for-delivery/waiting-for-delivery.module').then( m => m.WaitingForDeliveryPageModule)
   }
 ];
 

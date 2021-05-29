@@ -67,12 +67,6 @@ export class ItemDetailsPage implements OnInit {
   }
 
 
-  public navigateToAccountPage() {
-    this.NavController.navigateForward("/login");
-  }
-
-
-
   public removeItem(item: Item) {
     this.OrderService.removeItem(item);
     if (this.order.items.length === 0) {
@@ -113,9 +107,10 @@ export class ItemDetailsPage implements OnInit {
     if (this.order.orderTimestamp == null) {
       this.footerBodyState = FooterBodyState.PickDeliveryTime;
       this.timePickerMinAndMaxTime.push(this.getMinTimePickerDate(), this.getMaxTimePickerDate());
-      console.log(this.timePickerMinAndMaxTime);
     } else {
-      this.OrderService.startOrder();
+      if(this.order.orderTimestamp != null){
+        this.OrderService.startOrder();
+      }
     }
   }
 

@@ -1,9 +1,4 @@
 <ion-toolbar id="header-toolbar">
-  <ion-buttons slot="primary" (click)="navigateToAccountPage()">
-    <ion-button color="secondary">
-      <ion-icon class="header-icon" slot="icon-only" name="person-circle"></ion-icon>
-    </ion-button>
-  </ion-buttons>
   <ion-buttons slot="secondary" (click)="navigateBack()">
     <ion-button color="secondary">
       <ion-icon class="header-icon" slot="icon-only" name="chevron-back-outline"></ion-icon>
@@ -76,8 +71,6 @@
 
 <lib-ionic-pullup [(state)]="footerState" [toolbarTopMargin]="230" [minBottomVisible]="0">
   <ion-toolbar id="footer-toolbar" (click)="toggleFooter()" #ionDragFooter>
-    <ion-icon id="footer-icon" [ngClass]="this.footerState === 0 ? '' : this.footerState === 1 ? 'invert' : ''"
-      name="chevron-up-outline"></ion-icon>
     <ion-title>Pedido</ion-title>
   </ion-toolbar>
   <ion-content id="footer-content">
@@ -110,7 +103,7 @@
       <ion-card>
         <ion-card-content>
           <ion-list>
-            <ion-radio-group value="now" #radioButtonGroup (ionChange)="radioGroupChange()">
+            <ion-radio-group value="" #radioButtonGroup (ionChange)="radioGroupChange()">
               <ion-list-header>
                 <ion-label>Hora de entrega</ion-label>
               </ion-list-header>

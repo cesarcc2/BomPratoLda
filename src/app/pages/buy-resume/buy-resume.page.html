@@ -1,0 +1,82 @@
+<ion-toolbar id="header-toolbar">
+  <ion-buttons slot="secondary" (click)="navigateBack()">
+    <ion-button color="secondary">
+      <ion-icon class="header-icon" slot="icon-only" name="chevron-back-outline"></ion-icon>
+    </ion-button>
+  </ion-buttons>
+  <ion-title>BomPrato</ion-title>
+</ion-toolbar>
+
+<ion-content>
+<ion-card>
+  <ion-card-header>
+    <ion-card-title>Pedido</ion-card-title>
+  </ion-card-header>
+  <ion-card-content>
+    <div id="itens-container">
+      <div *ngFor="let itens of order.items">
+        <div class="footer-item" *ngFor="let item of order.items">
+          <div class="footer-item-image-wrapper">
+            <ion-img class="footer-item-image" src="{{item.image}}"></ion-img>
+          </div>
+          <div class="footer-item-details-wrapper">
+            <div class="footer-item-details-top">
+              <ion-label class="footer-item-details-description">{{item.name}}</ion-label>
+              <ion-label class="footer-item-details-total">{{item.total| number : '1.2-2'}}€</ion-label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="order-details">
+      <span><b>Total:</b> {{order.total}}€</span>
+      <br>
+      <span><b>Hora da preparação:</b> {{order.orderTimestamp.toLocaleDateString()}}</span>
+    </div>
+  </ion-card-content>
+</ion-card>
+
+<ion-card>
+  <ion-card-header>
+    <ion-card-title>Morada</ion-card-title>
+  </ion-card-header>
+  <ion-card-content>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <b>Rua:</b>{{order.address.street}}
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <b>Nº Porta:</b> {{order.address.doorNumber}}
+        </ion-col>
+        <ion-col>
+          <b>Piso:</b> {{order.address.floor}}
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <b>Cidade:</b> {{order.address.city}}
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <b>Código-Postal: </b>{{order.address.postalCode}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card-content>
+
+  <ion-card-header>
+    <ion-card-title>Pagamento</ion-card-title>
+  </ion-card-header>
+  <ion-card-content>
+    {{order.paymentMethod}}
+  </ion-card-content>
+
+</ion-card>
+</ion-content>
+<ion-footer>
+  <ion-button color="dark" (click)="confirmOrder()">Confirmar</ion-button>
+</ion-footer>

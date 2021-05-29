@@ -1,60 +1,57 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Registo</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
-
-  <h1 id="titulo" class="ion-text-center" style="margin-top: 50px;">Bom Prato Lda</h1>
-
-  <div style="display: flex; justify-content: center; align-items: center; margin-bottom: 10%;">
-  <ion-icon name="restaurant-outline" class="foodIcon"></ion-icon>
+  <div id="header">
+    <ion-icon (click)="pagLogin()" class="header-icon" slot="icon-only" name="chevron-back-outline"></ion-icon>
+    <span id="titulo" >Bom Prato Lda</span>
   </div>
 
-  <form [formGroup]="myForm" (ngSubmit)="onSubmit()" novalidate>
 
-    <h5 style="margin-top: 10px; margin-left: 4%;">Nome</h5>
-    <ion-item lines="none">
-            <ion-input type="text" formControlName="nome"formControlName="nome" style="border: skyblue solid 2px;" required></ion-input>
+  <div class="icon-wrapper">
+    <ion-icon name="restaurant-outline"></ion-icon>
+    </div>
+
+  <form [formGroup]="myForm" (ngSubmit)="onSubmit()" novalidate>
+    <div class="form-wrapper">
+    <h5 class="form-label">Nome</h5>
+    <ion-item lines="none" class="roundedInput">
+            <ion-input type="text" formControlName="nome"formControlName="nome" class="input" required></ion-input>
     </ion-item>
     <span class="error ion-padding" *ngIf="submitted && errorCtr.nome.errors?.required">
       Campo vazio. Introduza o seu nome.
     </span>
-    
-
-    <h5 style="margin-top: 10px; margin-left: 4%;">Username</h5>
-    <ion-item lines="none">
-            <ion-input type="text"  formControlName="username" style="border: skyblue solid 2px;" required></ion-input>
+  </div>
+  <div class="form-wrapper">
+    <h5 class="form-label">Username</h5>
+    <ion-item lines="none" class="roundedInput">
+            <ion-input type="text"  formControlName="username" class="input" required></ion-input>
     </ion-item>
     <span class="error ion-padding" *ngIf="submitted && errorCtr.username.errors?.required">
      Campo vazio. Introduza um username.
     </span>
-   
-
-    <h5 style="margin-top: 10px; margin-left: 4%;">Password</h5>
-    <ion-item lines="none">
-      <ion-input type="password" formControlName="password" style="border: skyblue solid 2px;" required></ion-input>
+  </div>
+  <div class="form-wrapper">
+    <h5 class="form-label">Password</h5>
+    <ion-item lines="none" class="roundedInput">
+      <ion-input type="password" formControlName="password" class="input" required></ion-input>
     </ion-item>
     <span class="error ion-padding" *ngIf="submitted && errorCtr.password.errors?.required">
       Campo vazio. Introduza uma password. 
      </span>
-    
+    </div>
 
     <ion-grid>
 
       <ion-row>
         <ion-col>
-          <div style="display: flex; justify-content: center; align-items: center;margin-top: 30px;" >
-          <ion-button type="submit" strong="true" color="secondary" expand="block">Registo</ion-button>
+          <div class="login-button-wrapper" >
+          <ion-button type="submit" strong="true" color="light" expand="block">Registo</ion-button>
         </div>
         </ion-col>
       </ion-row>
 
     <ion-row>
       <ion-col>
-        <div style="display: flex; justify-content: center; align-items: center;" >
-        <ion-button strong="true" color="secondary" expand="block" (click)="pagLogin()">Login</ion-button>
+        <div class="register-button-wrapper" >
+        <ion-button strong="true" color="light" expand="block" (click)="pagLogin()">Login</ion-button>
       </div>
       </ion-col>
     </ion-row>

@@ -1,8 +1,26 @@
+#header{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2rem;
+    #titulo{
+        font-size: 1.5rem;
+    }
+
+    ion-icon{
+        position: absolute;
+        top: 2.1rem;
+        left: 2rem;
+        font-size: 1.5rem;
+    }
+}
+
 .my-custom-class .alert-wrapper {
     background: #e5e5e5;
   }
 
-.foodIcon {
+.food-icon {
     height: 6em;
     width: 6em;
     color:grey;
@@ -10,8 +28,60 @@
 
 }  
 
+.icon-wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10%;
+    
+    ion-icon {
+        height: 6em;
+        width: 6em;
+        color:grey;
+        margin-top: 3rem;
+    
+    }  
+}
+
+form{
+    margin-top: 5rem;
+}
+
+
+.form-wrapper{
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+
+.form-label{
+    margin-top: 10px; 
+    margin-left: 1.3rem;
+}
+
+ion-item{
+    border-radius: 2rem;
+}
+
+.roundedInput {
+    --border-radius: 3px;
+    --highlight-height: 0;
+    --background: rgb(232, 240, 254);
+   }
+
+.login-button-wrapper{
+    display: flex; 
+    justify-content: center;
+    align-items: center; 
+    margin-top: 30px;
+}
+
+.register-button-wrapper{
+    display: flex; 
+    justify-content: center;
+    align-items: center; 
+}
+
 .button {
-   
     width: 50%;
     display: flex; justify-content: center; align-items: center;
 }

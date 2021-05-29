@@ -5,14 +5,16 @@ import { Address } from '../models/address';
 import { Observable,throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
+import { OrderService } from '../services/order.service';
+
 @Injectable({
   providedIn: 'root'
 })
 export class ClientService {
 
-  public client: Client = {addresses:null,password:null,username:"guest"};
+  public client: Client = {addresses:[],password:null,username:"guest"};
 
-  constructor(private http:HttpClient) { }
+  constructor(private http:HttpClient,private OrderService:OrderService) { }
 
   public getClientes() {
     return new Observable (observer => {
@@ -31,7 +33,9 @@ export class ClientService {
   
   /**Atualiza o cliente */
   updateClient(client: Client){
-    this.client = client
+    this.client = client;
+    this.OrderService.updateClient(this.client);
+
   }
 
   /**Adiciona uma nova morada ao array das moradas do cliente */

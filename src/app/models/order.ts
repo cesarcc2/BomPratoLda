@@ -10,10 +10,12 @@ export interface Order {
     orderTimestamp: Date,
     deliveryTimestamp: Date,
     state: OrderState,
+    paymentMethod: string
 }
 
 export enum OrderState {
     Pending  = "pending",
     Processing   = "processing",
-    Delivered  = "delivered"
+    Delivered  = "delivered",
+    WaitingLogin = "waitingLogin"
 }

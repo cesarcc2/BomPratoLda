@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { IonRadioGroup } from '@ionic/angular';
+import { IonRadioGroup, NavController } from '@ionic/angular';
 import { Router} from '@angular/router';
+import { OrderService } from 'src/app/services/order.service';
 
 
 @Component({
@@ -17,22 +18,24 @@ export class PagamentoPage implements OnInit {
   tipoPagamento: any
   
 
-  constructor(private router: Router) { }
+  constructor(private router: Router,public OrderService:OrderService,public NavController:NavController) { }
 
   ngOnInit() {
   }
 
   selectPagamento(){
     this.tipoPagamento=this.pagRadioB.value
-    console.log(this.tipoPagamento)
+    this.OrderService.setPaymentMethod(this.tipoPagamento);
 
   }
 
   terminar(){
-    //Enviar para proximoa pag
+    this.NavController.navigateForward('/buy-resume');
     
   }
 
-  
+  navigateBack(){
+    this.NavController.navigateBack('/moradas');
+  }
 
 }

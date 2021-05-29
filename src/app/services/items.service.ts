@@ -17,7 +17,7 @@ export class ItemsService {
 
     switch (category) {
       case CategoryType.pizzas:
-        url = "https://run.mocky.io/v3/b1a29de2-2e98-4294-b171-6771aa577557";
+        url = "https://run.mocky.io/v3/498d840c-136f-41f4-acaf-a991b2f061a7";
         break;
     
       case CategoryType.burguers:
@@ -27,7 +27,7 @@ export class ItemsService {
         url = "https://run.mocky.io/v3/0b404f02-0aef-40df-a258-3103de0f0207";
         break;
       case CategoryType.beverages:
-        url = "https://run.mocky.io/v3/13b311e1-468e-48b0-b65e-396d47995398";
+        url = "https://run.mocky.io/v3/2f7f6b26-088b-40b1-984d-6fb1bc27274a";
         break;    
     }
 

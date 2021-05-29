@@ -4,6 +4,7 @@ import {Address} from '../../models/address';
 import { ClientService } from '../../services/client.service';
 import { Validators, FormBuilder, FormGroup, FormControl,ReactiveFormsModule } from '@angular/forms';
 import { Router} from '@angular/router';
+import { NavController } from '@ionic/angular';
 
 
 
@@ -20,7 +21,7 @@ export class AdicionamoradaPage implements OnInit {
 
   //morada = <Address>{};
 
-  constructor(private ClientService:ClientService, public formBuilder: FormBuilder,private router: Router) { }
+  constructor(private ClientService:ClientService, public formBuilder: FormBuilder,private router: Router,public Nav:NavController) { }
 
   ngOnInit() {
     this.form = this.formBuilder.group({
@@ -65,5 +66,9 @@ export class AdicionamoradaPage implements OnInit {
     this.router.navigate(['/moradas']);
 
 
+  }
+
+  navigateBack(){
+    this.Nav.navigateBack('/moradas');
   }
 }
