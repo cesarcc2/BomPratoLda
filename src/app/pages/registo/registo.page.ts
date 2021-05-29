@@ -4,6 +4,8 @@ import { ClientService } from '../../services/client.service';
 import { ToastController } from '@ionic/angular';
 import {Router} from '@angular/router';
 import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
+import { StorageService } from '../../services/storage.service';
+
 
 
 
@@ -28,7 +30,7 @@ export class RegistoPage implements OnInit {
 
 
 
-  constructor(private ClientService:ClientService,public toastController: ToastController,private router: Router, public formBuilder: FormBuilder) { 
+  constructor(private ClientService:ClientService,public toastController: ToastController,private router: Router, public formBuilder: FormBuilder,private StorageService:StorageService) { 
 
     //tirar
     this.ClientService.getClientes().subscribe((data) => {
@@ -71,14 +73,16 @@ export class RegistoPage implements OnInit {
         addresses: []
         }
 
-     
-        /*
-      this.ClientService.client.username=this.username
-      this.ClientService.client.password=this.password
-      this.ClientService.client.addresses=[]*/
-
       
       this.ClientService.updateClient(client)
+
+      this.StorageService.set('username',client.username)
+        
+      this.StorageService.get('username').then(
+        data => {
+          console.log(data)
+        }
+      )
 
       this.router.navigate(['/menu']);
     }

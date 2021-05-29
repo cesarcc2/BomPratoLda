@@ -69,10 +69,14 @@ export class LoginPage implements OnInit {
         console.log("Login com sucesso!")
         this.utilizadorLog = userLogin
 
-        this.StorageService.set('username','teste')
-
+        this.StorageService.set('username',userLogin.username)
         
-       
+        this.StorageService.get('username').then(
+          data => {
+            console.log(data)
+          }
+        )
+        
         this.router.navigate(['/menu']);
 
         //Coloca key-value na storage
