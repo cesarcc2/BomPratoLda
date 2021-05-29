@@ -15,7 +15,7 @@ export class PagamentoPage implements OnInit {
   
   @ViewChild("pagamentoRadioGroup") pagRadioB: IonRadioGroup
 
-  tipoPagamento: any
+  tipoPagamento: string = null
   
 
   constructor(private router: Router,public OrderService:OrderService,public NavController:NavController) { }
