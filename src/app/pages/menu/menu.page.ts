@@ -6,6 +6,8 @@ import { Order, OrderState } from 'src/app/models/order';
 import { OrderService } from 'src/app/services/order.service';
 import { AlertController } from '@ionic/angular';
 import { ClientService } from '../../services/client.service';
+import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
+
 
 
 @Component({
@@ -26,7 +28,11 @@ export class MenuPage implements OnInit {
   public timePickerMinAndMaxTime:Array<string> = [];
   public timePickerValue:Date = null;
 
-  constructor(private OrderService:OrderService,private NavController: NavController,public alertController: AlertController,public ClientService:ClientService) {}
+  constructor(private OrderService:OrderService,private NavController: NavController,public alertController: AlertController,public ClientService:ClientService, private orientacao: ScreenOrientation) {
+
+    this.orientacao.lock(this.orientacao.ORIENTATIONS.PORTRAIT);
+
+  }
 
   ngOnInit() {}
 
@@ -38,13 +44,13 @@ export class MenuPage implements OnInit {
       subHeader: this.OrderService.order.client.username,
       buttons: [
         {
-          text: 'Cancel',
+          text: 'Cancelar',
           role: 'cancel',
           cssClass: 'secondary',
           handler: () => {
           }
         }, {
-          text: 'Confirm',
+          text: 'Confirmar',
           handler: () => {
             this.ClientService.updateClient({username:"guest",password:null,addresses:[]});
             this.OrderService.updateClient({username:"guest",password:null,addresses:[]});

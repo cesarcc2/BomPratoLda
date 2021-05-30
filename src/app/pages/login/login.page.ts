@@ -8,6 +8,7 @@ import { StorageService } from '../../services/storage.service';
 
 
 
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -26,6 +27,7 @@ export class LoginPage implements OnInit {
       
       this.clientes=data['clients'];
       console.log(this.clientes);
+
     });
 
   }
