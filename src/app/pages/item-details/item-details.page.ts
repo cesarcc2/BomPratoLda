@@ -16,24 +16,33 @@ import { OrderService } from 'src/app/services/order.service';
 
 export class ItemDetailsPage implements OnInit {
 
+  /**Obtém radio button group */
   @ViewChild('radioButtonGroup') radioButtonDeliveryTime: IonRadioGroup;
   
+  /**Encomenda */
   public order:Order;
+
+  /**Item */
   public item:Item;
 
   public footerBodyState:FooterBodyState;
   public footerState: IonPullUpFooterState;
+
+  /**  */
   public timePickerMinAndMaxTime:Array<string> = [];
   public timePickerValue:Date = null;
 
 
   constructor(private router: Router, private OrderService: OrderService, private NavController: NavController) {
+    
     if (router.getCurrentNavigation().extras.state) {
       const item = this.router.getCurrentNavigation().extras.state["item"];
       this.item = item;
       this.item.total = this.item.unitPrice;
     }
     this.order = this.OrderService.order;
+
+    /**Adiciona ao footer os items que o utilizador selecionu */
     if (this.order.items.length > 0) {
       this.footerBodyState = FooterBodyState.ShowItems;
     } else {
@@ -42,19 +51,23 @@ export class ItemDetailsPage implements OnInit {
   }
 
   ngOnInit() {
+    /**Esconde o footer aquando a sua inicialização */
     this.footerState = IonPullUpFooterState.Collapsed;
   }
 
+  /**Adiciona um item à encomenda e mostra esse item no footer */
   public addItem(item: Item) {
     this.OrderService.addItem(JSON.parse(JSON.stringify(item)));
     this.footerBodyState = FooterBodyState.ShowItems;
   }
 
+  /** Altera quantidade de um ingrediente e o preço total do item */
   public addIngredientQuantity(item: Item, ingredient: Ingredient) {
     item.editableIngredients[item.editableIngredients.indexOf(ingredient)].quantity++;
     item.total = item.total + ingredient.unitPrice;
   }
 
+  /***Remove ingrediente e a sua quantidade assim como o preço total do item */
   public removeIngredientQuantity(item: Item, ingredient: Ingredient) {
     if (item.editableIngredients[item.editableIngredients.indexOf(ingredient)].quantity > 0) {
       item.editableIngredients[item.editableIngredients.indexOf(ingredient)].quantity--;
@@ -62,11 +75,13 @@ export class ItemDetailsPage implements OnInit {
     }
   }
 
+  /**Retorna para a página dos menu */
   public navigateBack() {
     this.NavController.navigateBack('/menu');
   }
 
 
+  /**Remove um item da encomenda */
   public removeItem(item: Item) {
     this.OrderService.removeItem(item);
     if (this.order.items.length === 0) {
@@ -74,6 +89,7 @@ export class ItemDetailsPage implements OnInit {
     }
   }
 
+  /**Remove a quantidade de um item,atualizando também o preço da encomenda */
   public removeItemQuantity(item: Item) {
     if (item.quantity > 1) {
       item.quantity--;
@@ -87,6 +103,7 @@ export class ItemDetailsPage implements OnInit {
     }
   }
 
+  /**Adiciona quantidade de um item, atualizando também o preço total da encomenda */
   public addItemQuantity(item: Item) {
     item.quantity++;
     item.total = 0;
@@ -97,12 +114,15 @@ export class ItemDetailsPage implements OnInit {
     this.OrderService.updateTotal();
   }
 
-
+  /** */
   toggleFooter() {
     this.footerState = this.footerState === IonPullUpFooterState.Collapsed ? IonPullUpFooterState.Expanded : IonPullUpFooterState.Collapsed;
   }
 
 
+  /**Inicia uma encomenda, apenas quando já tem uma data de entrega selecionada, 
+   * caso contrário mostra o timePicker para o utilizador a selecionar
+   * */
   public startOrder() {
     if (this.order.orderTimestamp == null) {
       this.footerBodyState = FooterBodyState.PickDeliveryTime;
@@ -114,17 +134,20 @@ export class ItemDetailsPage implements OnInit {
     }
   }
 
+  /** */
   public getMinTimePickerDate() {
     let date = (new Date()).getTimezoneOffset() * 60000;
     return (new Date(Date.now() - date)).toISOString().slice(0, -1);
   }
 
+  /*** */
   public getMaxTimePickerDate() {
     let date = new Date();
     date.setHours(24, 0, 0);
     return date.toISOString();
   }
 
+  /***Seleciona o tipo da hora de entrega: Entregar agora ou escolher data */
   public radioGroupChange() {
     if (this.radioButtonDeliveryTime.value == "now") {
       this.OrderService.setOrderTimestamp(new Date());
@@ -134,6 +157,7 @@ export class ItemDetailsPage implements OnInit {
     console.log(this.order);
   }
 
+  /**Obtém a data selecionada no timePicker */
   public timePickerChange(event) {
     this.timePickerValue = event.detail.value;
   }

@@ -11,6 +11,7 @@ export class ItemsService {
 
   constructor(private http:HttpClient) { }
 
+  /**Obtém os itens disponibilizados no menu, definindo 1 unidade como a sua quantidade inicial*/
   public getItems(category): Observable<Item[]> {
 
     let url: string;

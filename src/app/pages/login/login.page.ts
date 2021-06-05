@@ -57,13 +57,17 @@ export class LoginPage implements OnInit {
     toast.present();
   }
 
+  /**Faz a autenticação do utilizador */
   verificaUtilizador(){
 
+    //Verifica se o utilizador existe
     if (!this.clientes.find(element => element.username === this.username)){
-      //Mostrar alerta "Esse utilizador não existe!"
+      
+      /*Mostrar alerta "Esse utilizador não existe!"*/
       this.usernameInvalido();
     } else {
 
+      /**Caso exista, atribui-o à variavel */
       let userLogin;
         userLogin = this.clientes.find(element => element.username === this.username)
       
@@ -73,15 +77,17 @@ export class LoginPage implements OnInit {
 
         this.StorageService.set('username','teste')
       
+        /**Atualiza no serviço do cliente, o cliente atualmente autenticado */
         this.ClientService.updateClient({username:this.username ,password:this.password ,addresses:[]});
        
+        /**Redireciona o utilizador para a página menu */
         this.router.navigate(['/menu']);
 
-        //Coloca key-value na storage
         
       } else {
       
         console.log("Login erro")
+        /**Mostra alerta que a password introduzida está errada */
         this.passwordErrada()
         
       }
@@ -89,6 +95,7 @@ export class LoginPage implements OnInit {
     }
   }
 
+  /**Redireciona para o menu */
   navigateToMenu(){
     this.router.navigate(['/menu']);
   }

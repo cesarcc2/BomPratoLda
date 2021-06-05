@@ -12,10 +12,12 @@ import { OrderService } from '../services/order.service';
 })
 export class ClientService {
 
+  /**Representa o cliente atual do sistema */
   public client: Client = {addresses:[],password:null,username:"guest"};
 
   constructor(private http:HttpClient,private OrderService:OrderService) { }
 
+  /**Obtém a lista de clientes */
   public getClientes() {
     return new Observable (observer => {
       fetch('https://run.mocky.io/v3/1adc4a85-3181-4653-a899-7efe454056f7')
@@ -27,11 +29,12 @@ export class ClientService {
     })
   }
 
+  /**Define um utlizador como convidado(estado inicial) */
   public setGuestAccount(){
     return this.client;
   }
   
-  /**Atualiza o cliente */
+  /**Atualiza os campos cliente */
   updateClient(client: Client){
     this.client = client;
     this.OrderService.updateClient(this.client);

@@ -18,6 +18,7 @@ export class WaitingForDeliveryPage implements OnInit {
     this.showHideAutoLoader();
   }
   
+  /***Mostra alerta a indicar que o pedido está a caminho */
   showHideAutoLoader() {
     
     this.loadingController.create({
@@ -33,6 +34,7 @@ export class WaitingForDeliveryPage implements OnInit {
 
   }
 
+  /**Confirma a encomenda, alterando o estado da encomenda para "Entregue", e redireciona para a página do menu */
   public confirmOrder(){
     this.orderService.setState(OrderState.Delivered);
     this.orderService.create(this.orderService.order.client);

@@ -12,7 +12,7 @@ export class CategoryService {
 
   public getCategories(): Observable<Category[]> {
 
-    const url: string = "https://run.mocky.io/v3/330b75e8-0bf5-41dc-96d0-a1be703d3539";
+    const url: string = "https://run.mocky.io/v3/2faa6189-3608-4144-8f5f-b6fb0643517c";
 
     return this.http.get<Category[]>(url, {})
       .pipe(

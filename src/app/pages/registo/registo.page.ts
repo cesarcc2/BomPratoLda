@@ -7,9 +7,6 @@ import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms'
 
 
 
-//Adicionar form validation para empty inputs
-
-
 @Component({
   selector: 'app-registo',
   templateUrl: './registo.page.html',
@@ -20,7 +17,6 @@ export class RegistoPage implements OnInit {
 
   clientes: any
 
-
   novoUtilizador = <Client>{};
 
   myForm: FormGroup;
@@ -30,7 +26,7 @@ export class RegistoPage implements OnInit {
 
   constructor(private ClientService:ClientService,public toastController: ToastController,private router: Router, public formBuilder: FormBuilder) { 
 
-    //tirar
+    //Obtém a lista de clientes inscritos no sistema
     this.ClientService.getClientes().subscribe((data) => {
       
       this.clientes=data['clients'];
@@ -40,6 +36,7 @@ export class RegistoPage implements OnInit {
 
   ngOnInit() {
 
+    /**Define os parâmetros dos campos do formulário */
     this.myForm = this.formBuilder.group({
       nome: ['', [Validators.required]],
       username: ['', [Validators.required]],
@@ -57,7 +54,7 @@ export class RegistoPage implements OnInit {
   }
 
   
-  /**Regista um novo utilizador no sistema.*/
+  /**Regista um novo utilizador no sistema, autenticando-o automaticamente após o registo.*/
   registo(){
 
 
@@ -70,12 +67,6 @@ export class RegistoPage implements OnInit {
         password: this.myForm.value.password,
         addresses: []
         }
-
-     
-        /*
-      this.ClientService.client.username=this.username
-      this.ClientService.client.password=this.password
-      this.ClientService.client.addresses=[]*/
 
       
       this.ClientService.updateClient(client)
@@ -94,6 +85,7 @@ export class RegistoPage implements OnInit {
     return this.myForm.controls;
   }
 
+  /**Caso os campos do formulário estejam corretos executa a função registo */
   onSubmit() {
     this.submitted = true;
     if (!this.myForm.valid) {

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {Client} from '../../models/client';
 import {Address} from '../../models/address';
 import { ClientService } from '../../services/client.service';
 import { Validators, FormBuilder, FormGroup, FormControl,ReactiveFormsModule } from '@angular/forms';
@@ -24,6 +23,8 @@ export class AdicionamoradaPage implements OnInit {
   constructor(private ClientService:ClientService, public formBuilder: FormBuilder,private router: Router,public Nav:NavController) { }
 
   ngOnInit() {
+
+    /***Define parâmetros para os form validators */
     this.form = this.formBuilder.group({
       rua: ['', [Validators.required]],
       porta: ['', [Validators.required]],
@@ -38,6 +39,7 @@ export class AdicionamoradaPage implements OnInit {
     return this.form.controls;
   }
 
+  /***Caso o formulário tenha os parâmetro corretos, a função "adicionarMorada" é executada.*/
   onSubmit() {
     this.submitted = true;
     if (!this.form.valid) {
@@ -48,6 +50,9 @@ export class AdicionamoradaPage implements OnInit {
     }
   }
   
+  /***Cria um objeto com os valores dos campos do formulário, e adiciona-o à lista das moradas do cliente, através do serviço.
+   * Posteriormente, redireciona para a página da lista das moradas.
+  */
   adicionarMorada(){
   
     let morada: Address = {
@@ -68,6 +73,7 @@ export class AdicionamoradaPage implements OnInit {
 
   }
 
+  /***Volta para a página das moradas */
   navigateBack(){
     this.Nav.navigateBack('/moradas');
   }

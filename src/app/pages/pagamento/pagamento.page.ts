@@ -12,9 +12,10 @@ import { OrderService } from 'src/app/services/order.service';
 export class PagamentoPage implements OnInit {
 
 
-  
+  /**Obtém o grupo de radiobuttons */
   @ViewChild("pagamentoRadioGroup") pagRadioB: IonRadioGroup
 
+  /**Tipo de pagamento("Multibanco,MBway...") */
   tipoPagamento: string = null
   
 
@@ -23,17 +24,20 @@ export class PagamentoPage implements OnInit {
   ngOnInit() {
   }
 
+  /**Obtém o valor do tipo de pagamento selecionado pelo radio button, adicionando esse método à encomenda*/
   selectPagamento(){
     this.tipoPagamento=this.pagRadioB.value
     this.OrderService.setPaymentMethod(this.tipoPagamento);
 
   }
 
+  /**Redireciona para a página final da encomenda(informações da encomenda) */
   terminar(){
     this.NavController.navigateForward('/buy-resume');
     
   }
 
+  /**Volta para a página as moradas */
   navigateBack(){
     this.NavController.navigateBack('/moradas');
   }
