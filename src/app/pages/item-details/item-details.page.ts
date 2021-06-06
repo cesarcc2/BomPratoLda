@@ -114,7 +114,6 @@ export class ItemDetailsPage implements OnInit {
     this.OrderService.updateTotal();
   }
 
-  /** */
   toggleFooter() {
     this.footerState = this.footerState === IonPullUpFooterState.Collapsed ? IonPullUpFooterState.Expanded : IonPullUpFooterState.Collapsed;
   }
@@ -134,13 +133,11 @@ export class ItemDetailsPage implements OnInit {
     }
   }
 
-  /** */
   public getMinTimePickerDate() {
     let date = (new Date()).getTimezoneOffset() * 60000;
     return (new Date(Date.now() - date)).toISOString().slice(0, -1);
   }
 
-  /*** */
   public getMaxTimePickerDate() {
     let date = new Date();
     date.setHours(24, 0, 0);

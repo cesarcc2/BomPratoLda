@@ -17,9 +17,11 @@ export class MenuComponent implements OnInit {
   constructor(private NavController: NavController,private animationCtrl: AnimationController,private CategoryService: CategoryService,private ItemService: ItemsService) { 
   }
 
+ 
   ngOnInit() {
     this.getCategories();
   }
+
 
   public openItemPage(item:Item){
     this.NavController.navigateForward('/item-details', { state: {"item":item} });

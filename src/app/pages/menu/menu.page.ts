@@ -30,13 +30,14 @@ export class MenuPage implements OnInit {
 
   constructor(private OrderService:OrderService,private NavController: NavController,public alertController: AlertController,public ClientService:ClientService, private orientacao: ScreenOrientation) {
 
+    /**Bloqueia a visualização landscape */
     this.orientacao.lock(this.orientacao.ORIENTATIONS.PORTRAIT);
 
   }
 
   ngOnInit() {}
 
-
+  /**Alerta para o logout */
   async presentAlertMultipleButtons() {
     const alert = await this.alertController.create({
       cssClass: 'my-custom-class',
@@ -63,6 +64,7 @@ export class MenuPage implements OnInit {
     await alert.present();
   }
 
+  /** Verifica se o utilizador está autenticado*/
   ionViewWillEnter(){
     if(this.OrderService.order.client.password != null){
       this.loggedIn = true;
@@ -85,6 +87,7 @@ export class MenuPage implements OnInit {
     }
   }
 
+  /**Redireciona o utilizador para a pagina do login, ou caso este esteja autenticado, mostra o alerta para fazer o logout */
   public accountButton() {
     if(this.loggedIn){
       this.presentAlertMultipleButtons();
@@ -94,7 +97,7 @@ export class MenuPage implements OnInit {
 
   }
 
-  
+  /**Remove item do pedido */
   public removeItem(item: Item) {
     this.OrderService.removeItem(item);
     if (this.order.items.length === 0) {
@@ -102,6 +105,7 @@ export class MenuPage implements OnInit {
     }
   }
 
+  /**Remove a quantidade de um item atualizando o preço total */
   public removeItemQuantity(item: Item) {
     if (item.quantity > 1) {
       item.quantity--;
@@ -115,6 +119,7 @@ export class MenuPage implements OnInit {
     }
   }
 
+  /**Adiciona quantidade a um item */
   public addItemQuantity(item: Item) {
     item.quantity++;
     item.total = 0;
@@ -125,12 +130,13 @@ export class MenuPage implements OnInit {
     this.OrderService.updateTotal();
   }
 
-
+  
   toggleFooter() {
     this.footerState = this.footerState === IonPullUpFooterState.Collapsed ? IonPullUpFooterState.Expanded : IonPullUpFooterState.Collapsed;
   }
 
 
+  /** Inicializa uma encomenda*/
   public startOrder() {
     if (this.order.orderTimestamp == null) {
       this.footerBodyState = FooterBodyState.PickDeliveryTime;
@@ -154,6 +160,7 @@ export class MenuPage implements OnInit {
     return date.toISOString();
   }
 
+  /**Obtém a data de entrega de um pedido */
   public radioGroupChange() {
     if (this.radioButtonDeliveryTime.value == "now") {
       this.OrderService.setOrderTimestamp(new Date());
